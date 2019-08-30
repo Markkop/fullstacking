@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
+    "start-server": "pm2 start server/server.js",
     "test": "jest",
     "test-server": "mocha './server/server.test.js' --watch",
     "lint": "eslint ."
   },
   "dependencies": {
+    "graphql": "^14.5.4",
     "koa": "^2.8.1",
+    "koa-graphql": "^0.8.0",
+    "koa-mount": "^4.0.0",
     "mongoose": "^5.6.11",
     "react": "16.8.6",
     "react-native": "0.60.5"

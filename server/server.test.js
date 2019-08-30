@@ -1,7 +1,7 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
 const app = require('./server');
-const Product = require('./Product');
+const Product = require('./models/Product');
 
 describe('Server', () => {
   describe('without acessing MongoDB', () => {
@@ -11,7 +11,7 @@ describe('Server', () => {
 
     it('is successful', done => {
       request(app)
-        .get('/')
+        .get('/graphql')
         .expect(200, done);
     });
 
