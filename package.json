@@ -4,6 +4,9 @@
   "description": "A fullstack challenge",
   "main": "index.js",
   "scripts": {
+    "start:app": "yarn --cwd packages/app start",
+    "android": "yarn --cwd packages/app/android android",
+    "shake": "adb shell input keyevent 82",
     "test": "jest"
   },
   "repository": {
