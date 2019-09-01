@@ -1,0 +1,26 @@
+{
+  "name": "fullstacking",
+  "version": "0.0.1",
+  "description": "A fullstack challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markkop/fullstacking.git"
+  },
+  "keywords": [
+    "fullstack",
+    "reactnative",
+    "graphql",
+    "mongodb",
+    "koajs"
+  ],
+  "author": "Marcelo Kopmann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Markkop/fullstacking/issues"
+  },
+  "homepage": "https://github.com/Markkop/fullstacking#readme"
+}
