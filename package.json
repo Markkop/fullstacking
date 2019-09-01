@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:app": "yarn --cwd packages/app start",
+    "start:server": "yarn --cwd packages/server start",
     "android": "yarn --cwd packages/app/android android",
     "shake": "adb shell input keyevent 82",
     "test": "jest"
