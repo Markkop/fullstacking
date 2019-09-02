@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
+    "update-schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" ./scripts/updateSchema.js",
     "test": "jest"
   },
   "author": "",
@@ -17,5 +18,9 @@
     "koa-graphql": "^0.8.0",
     "koa-mount": "^4.0.0",
     "mongoose": "^5.6.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5"
   }
 }

@@ -1,5 +1,7 @@
 type Product {
-  """The ID of an object"""
+  """
+  The ID of an object
+  """
   id: ID!
   _id: String
   title: String

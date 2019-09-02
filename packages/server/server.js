@@ -2,6 +2,7 @@ const Koa = require("koa");
 const mount = require("koa-mount");
 const graphqlHTTP = require("koa-graphql");
 const schema = require("./graphql/schema");
+const mongoose = require("mongoose");
 
 const databaseUrl = "mongodb://127.0.0.1:27017/test";
 mongoose.connect(databaseUrl, { useNewUrlParser: true });

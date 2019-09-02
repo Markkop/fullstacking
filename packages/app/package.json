@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
+    "relay": "relay-compiler --src ./src --schema ./data/schema.graphql",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -19,6 +20,7 @@
     "@babel/runtime": "^7.5.5",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "babel-plugin-relay": "^5.0.0",
     "eslint": "^6.3.0",
     "graphql": "^14.5.4",
     "graphql-compiler": "^1.7.0",
