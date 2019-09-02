@@ -8,7 +8,9 @@
     "start:server": "yarn --cwd packages/server start",
     "android": "yarn --cwd packages/app/android android",
     "shake": "adb shell input keyevent 82",
-    "test": "jest"
+    "test": "jest",
+    "relay": "relay-compiler --src ./src --schema ./server/data/schema.graphql",
+    "redirect": "sh ./app/scripts/redirect-ports.sh"
   },
   "repository": {
     "type": "git",
