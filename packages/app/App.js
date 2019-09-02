@@ -20,11 +20,11 @@ import {
 import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
-  const [data, setData] = useState({text: ''});
+  const [title, setTitle] = useState('Loading...');
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios('http://localhost:3000');
-      setData(result.data);
+      setTitle(result.data[0].title);
     };
     fetchData();
   }, []);
@@ -40,7 +40,7 @@ const App = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>
-                Hello World! Data:{data[0]}
+                Hello World! Product: {title}
               </Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
