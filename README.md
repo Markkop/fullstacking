@@ -10,6 +10,7 @@ Check it out at [dev.to/heymarkkop](https://dev.to/heymarkkop/new-challenge-full
 
 ## Check dev branch
 
+![a printscreen of the dev branch being selected in Github](http://i.imgur.com/iMsiv7J.png)\
 I'm also practicing Git, so I'm trying to use it as it should be used.
 
 ## Images
