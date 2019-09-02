@@ -6,7 +6,8 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
+import axios from 'axios';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,6 +20,15 @@ import {
 import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
+  const [data, setData] = useState({text: ''});
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios('http://localhost:3000');
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
@@ -30,7 +40,7 @@ const App = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>
-                Hello World! - Fullstacking
+                Hello World! Data:{data[0]}
               </Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
