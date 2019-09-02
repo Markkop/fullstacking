@@ -8,7 +8,10 @@
     "start:server": "yarn --cwd packages/server start",
     "android": "yarn --cwd packages/app/android android",
     "shake": "adb shell input keyevent 82",
-    "test": "jest"
+    "update-schema": "yarn --cwd packages/server update-schema",
+    "relay": "yarn --cwd packages/app relay",
+    "test": "jest",
+    "redirect": "sh ./packages/app/scripts/redirectPorts.sh"
   },
   "repository": {
     "type": "git",
