@@ -3,14 +3,37 @@ import {Text, TextInput, Button, ButtonText} from 'react-native';
 import graphql from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 import {Formik} from 'formik';
+import EventCreateMutation from './EventCreateMutation';
 
 import Environment from '../relay/Environment';
 
-const EventCreate = ({query}) => {
+const EventCreate = () => {
+  const handleSubmit = values => {
+    const {title, date, description} = values;
+
+    const input = {
+      title,
+      date,
+      description,
+    };
+
+    const onCompleted = id => {
+      alert(JSON.stringify(id)); // id is being received as null
+
+      //this.props.navigation.navigate('UserList');
+    };
+
+    const onError = err => {
+      alert('onError');
+      console.error(err);
+    };
+
+    EventCreateMutation.commit(input, onCompleted, onError);
+  };
   return (
     <Formik
       initialValues={{title: '', date: '', description: ''}}
-      onSubmit={values => alert(JSON.stringify(values))}>
+      onSubmit={values => handleSubmit(values)}>
       {({values, handleChange, handleSubmit}) => (
         <>
           <TextInput
@@ -35,33 +58,4 @@ const EventCreate = ({query}) => {
   );
 };
 
-const EventCreateQR = () => {
-  return (
-    <QueryRenderer
-      environment={Environment}
-      query={graphql`
-        query EventCreateQuery {
-          products {
-            id
-            title
-          }
-        }
-      `}
-      variables={{}}
-      render={({error, props}) => {
-        console.log('qr: ', error, props);
-        if (error) {
-          return <Text>{error.toString()}</Text>;
-        }
-
-        if (props) {
-          return <EventCreate query={props} />;
-        }
-
-        return <Text>loading</Text>;
-      }}
-    />
-  );
-};
-
-export default EventCreateQR;
+export default EventCreate;
