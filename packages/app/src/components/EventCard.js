@@ -4,13 +4,13 @@ import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 import {Environment} from 'relay-runtime';
 
-const EventCard = props => {
+const EventCard = ({event}) => {
   return (
     <>
-      <Text>Title: {props.title}</Text>
-      <Text>Date: {props.date}</Text>
-      <Text>Description: {props.description}</Text>
-      <Text>Author: {props.author}</Text>
+      <Text>Title: {event.title}</Text>
+      <Text>Date: {event.date}</Text>
+      <Text>Description: {event.description}</Text>
+      <Text>Author: {event.author}</Text>
     </>
   );
 };
