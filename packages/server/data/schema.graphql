@@ -8,6 +8,22 @@ type Event {
   author: String
 }
 
+input EventCreateInput {
+  title: String!
+  date: String!
+  description: String!
+  clientMutationId: String
+}
+
+type EventCreatePayload {
+  id: ID
+  clientMutationId: String
+}
+
+type Mutation {
+  EventCreate(input: EventCreateInput!): EventCreatePayload
+}
+
 type Product {
   """The ID of an object"""
   id: ID!
