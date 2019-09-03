@@ -4,6 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 
 import Environment from './relay/Environment';
+import EventList from './components/EventList';
 
 const App = ({query}) => {
   const {products} = query;
@@ -11,6 +12,7 @@ const App = ({query}) => {
   return (
     <Fragment>
       <Text>Hello World! Product: {products[0].title}</Text>
+      <EventList />
     </Fragment>
   );
 };
@@ -24,7 +26,7 @@ const AppQR = () => {
           products {
             id
             title
-          }
+          }Note we'
         }
       `}
       variables={{}}
