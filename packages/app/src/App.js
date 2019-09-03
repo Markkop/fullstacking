@@ -26,7 +26,7 @@ const AppQR = () => {
           products {
             id
             title
-          }Note we'
+          }
         }
       `}
       variables={{}}
