@@ -3,9 +3,12 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLString
 } = require("graphql");
 const fromGlobalId = require("graphql-relay").fromGlobalId;
+const mutationWithClientMutationId = require("graphql-relay")
+  .mutationWithClientMutationId;
 const productGraphQLType = require("./productType");
 const eventGraphQLType = require("./eventType");
 const Product = require("../models/Product");
@@ -43,6 +46,48 @@ const Query = new GraphQLObjectType({
   }
 });
 
+const EventCreate = mutationWithClientMutationId({
+  name: "EventCreate",
+  inputFields: {
+    title: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    date: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    description: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    id: {
+      type: GraphQLID,
+      resolve: payload => payload.id
+    }
+  },
+  mutateAndGetPayload: async ({ title, date, description }) => {
+    const newEvent = new Event({
+      title,
+      date,
+      description
+    });
+    const returnedObject = await newEvent.save();
+    const eventId = await returnedObject._id;
+
+    return {
+      id: eventId
+    };
+  }
+});
+
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    EventCreate: EventCreate
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: Query
+  query: Query,
+  mutation: Mutation
 });
