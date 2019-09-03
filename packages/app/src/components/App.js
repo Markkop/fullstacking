@@ -3,16 +3,17 @@ import {Text} from 'react-native';
 import graphql from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 
-import Environment from './relay/Environment';
-import EventList from './components/EventList';
+import Environment from '../relay/Environment';
+import EventList from './EventList';
+import EventCreate from './EventCreate';
 
 const App = ({query}) => {
   const {products} = query;
 
   return (
     <Fragment>
-      <Text>Hello World! Product: {products[0].title}</Text>
       <EventList />
+      <EventCreate />
     </Fragment>
   );
 };
