@@ -26,18 +26,7 @@ type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
 }
 
-type Product {
-  """
-  The ID of an object
-  """
-  id: ID!
-  _id: String
-  title: String
-}
-
 type Query {
-  product(id: ID!): Product
-  products: [Product]
   event(id: ID!): Event
   events: [Event]
 }

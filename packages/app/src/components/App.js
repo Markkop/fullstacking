@@ -3,13 +3,10 @@ import {Text} from 'react-native';
 import graphql from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 
-import Environment from '../relay/Environment';
 import EventList from './EventList';
 import EventCreate from './EventCreate';
 
-const App = ({query}) => {
-  const {products} = query;
-
+const App = () => {
   return (
     <Fragment>
       <EventList />
@@ -18,33 +15,4 @@ const App = ({query}) => {
   );
 };
 
-const AppQR = () => {
-  return (
-    <QueryRenderer
-      environment={Environment}
-      query={graphql`
-        query AppQuery {
-          products {
-            id
-            title
-          }
-        }
-      `}
-      variables={{}}
-      render={({error, props}) => {
-        console.log('qr: ', error, props);
-        if (error) {
-          return <Text>{error.toString()}</Text>;
-        }
-
-        if (props) {
-          return <App query={props} />;
-        }
-
-        return <Text>loading</Text>;
-      }}
-    />
-  );
-};
-
-export default AppQR;
+export default App;
