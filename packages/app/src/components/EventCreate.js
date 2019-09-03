@@ -1,11 +1,7 @@
-import React, {Fragment, useState} from 'react';
-import {Text, TextInput, Button, ButtonText} from 'react-native';
-import graphql from 'babel-plugin-relay/macro';
-import {QueryRenderer} from 'react-relay';
+import React from 'react';
+import {TextInput, Button, ButtonText} from 'react-native';
 import {Formik} from 'formik';
 import EventCreateMutation from './EventCreateMutation';
-
-import Environment from '../relay/Environment';
 
 const EventCreate = () => {
   const handleSubmit = values => {
@@ -18,13 +14,15 @@ const EventCreate = () => {
     };
 
     const onCompleted = id => {
-      alert(JSON.stringify(id)); // id is being received as null
+      // Some implementation that requires the id from
+      // the new event created
+      alert(JSON.stringify(id));
 
-      //this.props.navigation.navigate('UserList');
+      // Redirect
+      // this.props.navigation.navigate('UserList');
     };
 
     const onError = err => {
-      alert('onError');
       console.error(err);
     };
 
