@@ -58,6 +58,7 @@ const EventCreate = mutationWithClientMutationId({
     });
     const returnedObject = await newEvent.save();
     const eventId = await returnedObject._id;
+    console.log(`New Event created with id: ${eventId}`); //this will be in a subscription
 
     return {
       id: eventId

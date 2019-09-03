@@ -14,7 +14,6 @@ function commit(input, onCompleted, onError) {
     mutation,
     variables: {
       input,
-      clientMutationId: '',
     },
     onCompleted,
     onError,
