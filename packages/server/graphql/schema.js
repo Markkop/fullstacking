@@ -7,9 +7,7 @@ const {
   GraphQLString
 } = require("graphql");
 const { fromGlobalId, mutationWithClientMutationId } = require("graphql-relay");
-const productGraphQLType = require("./productType");
 const eventGraphQLType = require("./eventType");
-const Product = require("../models/Product");
 const Event = require("../models/Event");
 
 const Query = new GraphQLObjectType({
