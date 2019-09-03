@@ -28,6 +28,8 @@ const EventListQR = () => {
           events {
             id
             title
+            date
+            description
           }
         }
       `}
