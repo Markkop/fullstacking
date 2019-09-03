@@ -1,5 +1,4 @@
 import {Environment, Network, RecordSource, Store} from 'relay-runtime';
-import RelayNetworkLogger from 'relay-runtime/lib/RelayNetworkLogger';
 
 import fetchQuery from './fetchQuery';
 

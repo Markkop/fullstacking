@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment} from 'react';
 import {Text} from 'react-native';
 import graphql from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
