@@ -1,13 +1,32 @@
-type Product {
+type Event {
   """
   The ID of an object
   """
   id: ID!
   _id: String
   title: String
+  date: String
+  description: String
+  author: String
+}
+
+input EventCreateInput {
+  title: String!
+  date: String!
+  description: String!
+  clientMutationId: String
+}
+
+type EventCreatePayload {
+  id: ID
+  clientMutationId: String
+}
+
+type Mutation {
+  EventCreate(input: EventCreateInput!): EventCreatePayload
 }
 
 type Query {
-  product(id: ID!): Product
-  products: [Product]
+  event(id: ID!): Event
+  events: [Event]
 }
