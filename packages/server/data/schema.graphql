@@ -1,3 +1,13 @@
+type Event {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  title: String
+  date: String
+  description: String
+  author: String
+}
+
 type Product {
   """The ID of an object"""
   id: ID!
@@ -8,4 +18,6 @@ type Product {
 type Query {
   product(id: ID!): Product
   products: [Product]
+  event(id: ID!): Event
+  events: [Event]
 }
