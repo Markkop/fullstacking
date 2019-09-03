@@ -1,16 +1,38 @@
-type Product {
-  id: ID!
-  _id: String
-  title: String
-}
-
 type Event {
+  """
+  The ID of an object
+  """
   id: ID!
   _id: String
   title: String
   date: String
   description: String
   author: String
+}
+
+input EventCreateInput {
+  title: String!
+  date: String!
+  description: String!
+  clientMutationId: String
+}
+
+type EventCreatePayload {
+  id: ID
+  clientMutationId: String
+}
+
+type Mutation {
+  EventCreate(input: EventCreateInput!): EventCreatePayload
+}
+
+type Product {
+  """
+  The ID of an object
+  """
+  id: ID!
+  _id: String
+  title: String
 }
 
 type Query {
