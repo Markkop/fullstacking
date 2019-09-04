@@ -11,12 +11,11 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const fs = require("fs");
-const path = require("path");
-const schema = require("../graphql/schema");
-const graphql = require("graphql").graphql;
-const introspectionQuery = require("graphql/utilities").introspectionQuery;
-const printSchema = require("graphql/utilities").printSchema;
+import fs from "fs";
+import path from "path";
+import { schema } from "../src/schema";
+import { graphql } from "graphql";
+import { introspectionQuery, printSchema } from "graphql/utilities";
 
 // Save JSON of full schema introspection for Babel Relay Plugin to use
 (async () => {

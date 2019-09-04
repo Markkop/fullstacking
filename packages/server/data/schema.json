@@ -12,7 +12,7 @@
         {
           "kind": "OBJECT",
           "name": "Query",
-          "description": null,
+          "description": "The root of all... queries",
           "fields": [
             {
               "name": "event",

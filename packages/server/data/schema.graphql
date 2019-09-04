@@ -24,6 +24,7 @@ type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
 }
 
+"""The root of all... queries"""
 type Query {
   event(id: ID!): Event
   events: [Event]

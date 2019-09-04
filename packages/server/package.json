@@ -4,7 +4,7 @@
   "description": "Server package for Fullstacking project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon ./src/server.js --exec babel-node",
     "update-schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" ./scripts/updateSchema.js",
     "test": "jest"
   },
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5"
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5"
   }
 }
