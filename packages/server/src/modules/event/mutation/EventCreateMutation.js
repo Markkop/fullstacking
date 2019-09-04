@@ -1,7 +1,7 @@
 import { GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 
-import { EventModel } from "../EventModel";
+import EventModel from "../EventModel";
 
 export default mutationWithClientMutationId({
   name: "EventCreate",
