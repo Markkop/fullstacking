@@ -1,11 +1,29 @@
+import "isomorphic-fetch";
+
 import Koa from "koa";
-import mount from "koa-mount";
-import graphqlHTTP from "koa-graphql";
-import { connectDatabase } from "./database";
-import { schema } from "./schema";
+import bodyParser from "koa-bodyparser";
+import cors from "kcors";
+import graphqlHttp from "koa-graphql";
+import graphqlBatchHttpWrapper from "koa-graphql-batch";
+import logger from "koa-logger";
+import Router from "koa-router";
+import koaPlayground from "graphql-playground-middleware-koa";
 
 const app = new Koa();
+const router = new Router();
 
+const JWT_KEY = process.env.JWT_KEY || "";
+
+app.keys = [JWT_KEY];
+
+const graphqlServer = graphqlHttp({});
+
+router.all(
+  "/graphql/batch",
+  bodyParser(),
+  graphqlBatchHttpWrapper(graphqlServer)
+);
+router.all("/graphql", graphqlServer);
 router.all(
   "/graphiql",
   koaPlayground({
@@ -13,13 +31,8 @@ router.all(
     subscriptionEndpoint: "/subscriptions"
   })
 );
-router.all("/graphql", graphqlServer);
-app.use(logger());
+
 app.use(cors());
 app.use(router.routes()).use(router.allowedMethods());
-
-app.listen(3000, () =>
-  console.log("Server is running on http://localhost:3000/")
-);
 
 export default app;
