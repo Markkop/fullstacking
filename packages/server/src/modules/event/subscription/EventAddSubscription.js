@@ -1,4 +1,5 @@
 import { subscriptionWithClientId } from "graphql-relay-subscription";
+// import { GraphQLObjectType } from "graphql";
 const EventType = require("../EventType");
 
 import pubSub, { EVENTS } from "../../../pubSub";
@@ -13,3 +14,20 @@ export default subscriptionWithClientId({
   },
   subscribe: () => pubSub.asyncIterator(EVENTS.EVENT.ADDED)
 });
+
+// const EventAddPayloadType = new GraphQLObjectType({
+//   name: "EventAddSubscription",
+//   fields: () => ({
+//     subscription: {
+//       type: EventType,
+//       resolve: async (source, args, context) => console.log(source) // implementar uma lógica de return
+//     }
+//   })
+// });
+
+// const EventAddSubscription = {
+//   type: EventAddPayloadType,
+//   subscribe: () => pubSub.asyncIterator(EVENTS.EVENT.ADDED)
+// };
+
+// export default EventAddSubscription;

@@ -8,13 +8,8 @@ type Event {
   author: String
 }
 
-input EventAddSubscriptionInput {
-  clientSubscriptionId: String
-}
-
-type EventAddSubscriptionPayload {
+type EventAddSubscription {
   subscription: Event
-  clientSubscriptionId: String
 }
 
 input EventCreateInput {
@@ -40,5 +35,5 @@ type Query {
 }
 
 type Subscription {
-  EventAddSubscription(input: EventAddSubscriptionInput!): EventAddSubscriptionPayload
+  EventAddSubscription: EventAddSubscription
 }

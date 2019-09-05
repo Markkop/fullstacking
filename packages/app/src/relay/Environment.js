@@ -8,6 +8,7 @@ const setupSubscription = (config, variables, cacheConfig, observer) => {
   const subscriptionClient = new SubscriptionClient(websocketURL, {
     reconnect: true,
   });
+  console.log(subscriptionClient);
   subscriptionClient.subscribe({query, variables}, (error, result) => {
     observer.onNext({data: result});
   });

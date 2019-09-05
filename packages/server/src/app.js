@@ -25,10 +25,10 @@ router.all(
 );
 router.all("/graphql", graphqlServer);
 router.all(
-  "/graphiql",
+  "/playground",
   koaPlayground({
     endpoint: "/graphql",
-    subscriptionEndpoint: "/subscriptions"
+    subscriptionEndpoint: "ws://localhost:3000/subscriptions"
   })
 );
 
