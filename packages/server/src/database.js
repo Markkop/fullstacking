@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-export async function connectDatabase() {
+export function connectDatabase() {
   try {
     const databaseUrl = "mongodb://127.0.0.1:27017/test";
     mongoose.connect(databaseUrl, { useNewUrlParser: true });
