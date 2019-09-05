@@ -1,38 +1,33 @@
 /* eslint implicit-arrow-linebreak: 0 */
-import "core-js/stable";
 import "regenerator-runtime/runtime";
 import { createServer } from "http";
 import { SubscriptionServer } from "subscriptions-transport-ws";
 import { execute, subscribe } from "graphql";
 
 import app from "./app";
-import logger, { getConsoleTransport } from "./core/logger";
 import { connectDatabase } from "./database";
-import { graphqlPort } from "./config";
 
 import { schema } from "./schema";
-
-logger.add(getConsoleTransport("graphql-main"));
 
 (async () => {
   try {
     await connectDatabase();
   } catch (error) {
-    logger.error("Could not connect to database", { error });
+    console.log("Could not connect to database", { error });
     throw error;
   }
 
   const server = createServer(app.callback());
 
-  server.listen(graphqlPort, () => {
-    logger.info(`Server started on port :${graphqlPort}`);
+  server.listen(3000, () => {
+    console.log(`Server started on port :3000`);
   });
 
   SubscriptionServer.create(
     {
       onConnect: connectionParams =>
-        logger.info("Client subscription connected!", connectionParams),
-      onDisconnect: () => logger.info("Client subscription disconnected!"),
+        console.log("Client subscription connected!", connectionParams),
+      onDisconnect: () => console.log("Client subscription disconnected!"),
       execute,
       subscribe,
       schema
