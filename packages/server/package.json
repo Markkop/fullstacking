@@ -4,7 +4,7 @@
   "description": "Server package for Fullstacking project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/server.js --exec babel-node",
+    "start": "nodemon ./src/index.js --exec babel-node",
     "update-schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" ./scripts/updateSchema.js",
     "test": "jest"
   },
@@ -13,12 +13,19 @@
   "dependencies": {
     "graphql": "^14.5.4",
     "graphql-compiler": "^1.7.0",
+    "graphql-playground-middleware-koa": "^1.6.12",
     "graphql-relay": "^0.6.0",
+    "http": "^0.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "kcors": "^2.2.2",
     "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
     "koa-graphql": "^0.8.0",
+    "koa-graphql-batch": "^1.1.0",
     "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",
-    "mongoose": "^5.6.11"
+    "mongoose": "^5.6.11",
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

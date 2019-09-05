@@ -5,7 +5,6 @@ import bodyParser from "koa-bodyparser";
 import cors from "kcors";
 import graphqlHttp from "koa-graphql";
 import graphqlBatchHttpWrapper from "koa-graphql-batch";
-import logger from "koa-logger";
 import Router from "koa-router";
 import koaPlayground from "graphql-playground-middleware-koa";
 
