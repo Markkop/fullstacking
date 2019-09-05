@@ -10,6 +10,15 @@ type Event {
   author: String
 }
 
+input EventAddSubscriptionInput {
+  clientSubscriptionId: String
+}
+
+type EventAddSubscriptionPayload {
+  subscription: Event
+  clientSubscriptionId: String
+}
+
 input EventCreateInput {
   title: String!
   date: String!
@@ -32,4 +41,10 @@ The root of all... queries
 type Query {
   event(id: ID!): Event
   events: [Event]
+}
+
+type Subscription {
+  EventAddSubscription(
+    input: EventAddSubscriptionInput!
+  ): EventAddSubscriptionPayload
 }
