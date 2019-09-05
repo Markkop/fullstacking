@@ -14,6 +14,7 @@
     "graphql": "^14.5.4",
     "graphql-compiler": "^1.7.0",
     "graphql-playground-middleware-koa": "^1.6.12",
+    "graphql-redis-subscriptions": "^2.1.1",
     "graphql-relay": "^0.6.0",
     "graphql-relay-subscription": "^0.2.1",
     "http": "^0.0.0",

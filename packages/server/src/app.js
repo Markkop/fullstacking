@@ -7,6 +7,7 @@ import graphqlHttp from "koa-graphql";
 import graphqlBatchHttpWrapper from "koa-graphql-batch";
 import Router from "koa-router";
 import koaPlayground from "graphql-playground-middleware-koa";
+import { schema } from "./schema";
 
 const app = new Koa();
 const router = new Router();
@@ -15,7 +16,7 @@ const JWT_KEY = process.env.JWT_KEY || "";
 
 app.keys = [JWT_KEY];
 
-const graphqlServer = graphqlHttp({});
+const graphqlServer = graphqlHttp({ schema: schema });
 
 router.all(
   "/graphql/batch",
