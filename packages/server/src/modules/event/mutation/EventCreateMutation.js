@@ -1,5 +1,6 @@
 import { GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
+import pubSub, { EVENTS } from "../../../pubSub";
 
 import EventModel from "../EventModel";
 
@@ -29,8 +30,9 @@ export default mutationWithClientMutationId({
       description
     });
     const returnedObject = await newEvent.save();
-    const eventId = await returnedObject._id;
+    const eventId = returnedObject._id;
     console.log(`New Event created with id: ${eventId}`); //this will be in a subscription
+    await pubSub.publish(EVENTS.EVENT.ADDED, { EventAdded: { newEvent } });
 
     return {
       id: eventId
