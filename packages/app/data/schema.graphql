@@ -1,13 +1,15 @@
 type Event {
-  """
-  The ID of an object
-  """
+  """The ID of an object"""
   id: ID!
   _id: String
   title: String
   date: String
   description: String
   author: String
+}
+
+type EventAddSubscription {
+  subscription: Event
 }
 
 input EventCreateInput {
@@ -26,7 +28,12 @@ type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
 }
 
+"""The root of all... queries"""
 type Query {
   event(id: ID!): Event
   events: [Event]
+}
+
+type Subscription {
+  EventAddSubscription: EventAddSubscription
 }

@@ -8,6 +8,10 @@ type Event {
   author: String
 }
 
+type EventAddSubscription {
+  subscription: Event
+}
+
 input EventCreateInput {
   title: String!
   date: String!
@@ -24,7 +28,12 @@ type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
 }
 
+"""The root of all... queries"""
 type Query {
   event(id: ID!): Event
   events: [Event]
+}
+
+type Subscription {
+  EventAddSubscription: EventAddSubscription
 }
