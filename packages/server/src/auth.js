@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "./modules/user/UserModel";
+import User from "./modules/user/UserModel";
 
 export async function getUser(token) {
   if (!token) return { user: null };
@@ -18,5 +18,6 @@ export async function getUser(token) {
 }
 
 export function generateToken(user) {
-  return `JWT ${jwt.sign({ id: user._id }, jwtSecret)}`;
+  console.log(user);
+  return `JWT ${jwt.sign({ id: user._id }, "secret_key")}`;
 }

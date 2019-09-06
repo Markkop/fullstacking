@@ -22,10 +22,9 @@ export default mutationWithClientMutationId({
 
     if (!user) {
       return {
-        error: defaultErrorMessage
+        error: "No email found"
       };
     }
-
     const correctPassword = user.authenticate(password);
 
     if (!correctPassword) {

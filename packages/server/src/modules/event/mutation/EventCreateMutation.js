@@ -2,6 +2,7 @@ import { GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import pubSub, { EVENTS } from "../../../pubSub";
 
+import UserModel from "../../user/UserModel";
 import EventModel from "../EventModel";
 
 export default mutationWithClientMutationId({
@@ -24,10 +25,14 @@ export default mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async ({ title, date, description }) => {
+    // const user = new UserModel();
+    // const author = user.find({ active: true });
+    // console.log(author);
     const newEvent = new EventModel({
       title,
       date,
-      description
+      description,
+      author
     });
     const returnedObject = await newEvent.save();
     const eventId = returnedObject._id;
