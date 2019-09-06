@@ -5,11 +5,16 @@ type Event {
   title: String
   date: String
   description: String
-  author: String
+  author: User
 }
 
-type EventAddSubscription {
+input EventAddSubscriptionInput {
+  clientSubscriptionId: String
+}
+
+type EventAddSubscriptionPayload {
   subscription: Event
+  clientSubscriptionId: String
 }
 
 input EventCreateInput {
@@ -32,8 +37,18 @@ type Mutation {
 type Query {
   event(id: ID!): Event
   events: [Event]
+  users(id: ID!): User
 }
 
 type Subscription {
-  EventAddSubscription: EventAddSubscription
+  EventAddSubscription(input: EventAddSubscriptionInput!): EventAddSubscriptionPayload
+}
+
+type User {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  email: String
+  active: String
 }

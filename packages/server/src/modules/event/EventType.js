@@ -1,5 +1,6 @@
 const graphql = require("graphql");
 const globalIdField = require("graphql-relay").globalIdField;
+const UserType = require("./UserType");
 
 const { GraphQLObjectType, GraphQLString } = graphql;
 
@@ -11,7 +12,7 @@ const EventType = new GraphQLObjectType({
     title: { type: GraphQLString },
     date: { type: GraphQLString },
     description: { type: GraphQLString },
-    author: { type: GraphQLString }
+    author: { type: UserType }
   })
 });
 
