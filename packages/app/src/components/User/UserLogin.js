@@ -1,9 +1,9 @@
 import React from 'react';
 import {TextInput, Button, ButtonText} from 'react-native';
 import {Formik} from 'formik';
-import UserCreateMutation from './UserCreateMutation';
+import UserLoginMutation from './UserLoginMutation';
 
-const UserCreate = () => {
+const UserLogin = () => {
   const handleSubmit = values => {
     const {name, email, password} = values;
 
@@ -15,7 +15,7 @@ const UserCreate = () => {
 
     const onCompleted = id => {
       // Some implementation that requires the id from
-      // the new User created
+      // the new User Logind
       alert(JSON.stringify(id));
 
       // Redirect
@@ -26,19 +26,14 @@ const UserCreate = () => {
       console.error(err);
     };
 
-    UserCreateMutation.commit(input, onCompleted, onError);
+    UserLoginMutation.commit(input, onCompleted, onError);
   };
   return (
     <Formik
-      initialValues={{name: '', email: '', password: ''}}
+      initialValues={{email: '', password: ''}}
       onSubmit={values => handleSubmit(values)}>
       {({values, handleChange, handleSubmit}) => (
         <>
-          <TextInput
-            placeholder="Name"
-            onChangeText={handleChange('name')}
-            value={values.name}
-          />
           <TextInput
             placeholder="email"
             onChangeText={handleChange('email')}
@@ -49,11 +44,11 @@ const UserCreate = () => {
             onChangeText={handleChange('password')}
             value={values.password}
           />
-          <Button onPress={handleSubmit} title="Create User"></Button>
+          <Button onPress={handleSubmit} title="Login User"></Button>
         </>
       )}
     </Formik>
   );
 };
 
-export default UserCreate;
+export default UserLogin;
