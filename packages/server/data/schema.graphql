@@ -31,6 +31,8 @@ type EventCreatePayload {
 
 type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
+  UserCreate(input: UserRegisterWithEmailInput!): UserRegisterWithEmailPayload
+  UserLogin(input: UserLoginWithEmailInput!): UserLoginWithEmailPayload
 }
 
 """The root of all... queries"""
@@ -51,4 +53,29 @@ type User {
   name: String
   email: String
   active: Boolean
+}
+
+input UserLoginWithEmailInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLoginWithEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+input UserRegisterWithEmailInput {
+  name: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserRegisterWithEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
 }

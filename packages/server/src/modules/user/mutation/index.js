@@ -1,5 +1,5 @@
 import UserCreate from "./UserRegisterWIthMutation";
-import UserLogin from "./UserLoginWIthMutation";
+import UserLogin from "./UserLoginWithMutation";
 
 export default {
   UserCreate,
