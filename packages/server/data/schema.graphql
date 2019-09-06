@@ -50,5 +50,5 @@ type User {
   _id: String
   name: String
   email: String
-  active: String
+  active: Boolean
 }

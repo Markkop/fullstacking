@@ -1,6 +1,6 @@
 const graphql = require("graphql");
 const globalIdField = require("graphql-relay").globalIdField;
-const UserType = require("./UserType");
+const UserType = require("../user/UserType");
 
 const { GraphQLObjectType, GraphQLString } = graphql;
 

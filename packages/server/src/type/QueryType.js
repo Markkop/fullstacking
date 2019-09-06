@@ -7,8 +7,8 @@ const {
 const { fromGlobalId } = require("graphql-relay");
 const EventType = require("../modules/event/EventType");
 const EventModel = require("../modules/event/EventModel");
-const UserType = require("../modules/event/UserType");
-const UserModel = require("../modules/event/UserModel");
+const UserType = require("../modules/user/UserType");
+const UserModel = require("../modules/user/UserModel");
 
 export default new GraphQLObjectType({
   name: "Query",

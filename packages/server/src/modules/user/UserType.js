@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const globalIdField = require("graphql-relay").globalIdField;
 
-const { GraphQLObjectType, GraphQLString } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLBoolean } = graphql;
 
 const UserType = new GraphQLObjectType({
   name: "User",
@@ -10,7 +10,7 @@ const UserType = new GraphQLObjectType({
     _id: { type: GraphQLString },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
-    active: { type: GraphQLString }
+    active: { type: GraphQLBoolean }
   })
 });
 
