@@ -9,6 +9,9 @@ const setupSubscription = (config, variables, cacheConfig, observer) => {
     reconnect: true,
   });
   console.log(subscriptionClient);
+
+  // fix: subscriptionClient does not have subscribe function
+  // how to create a subscription?
   subscriptionClient.subscribe({query, variables}, (error, result) => {
     observer.onNext({data: result});
   });
