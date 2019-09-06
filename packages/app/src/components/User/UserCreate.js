@@ -5,12 +5,12 @@ import UserCreateMutation from './UserCreateMutation';
 
 const UserCreate = () => {
   const handleSubmit = values => {
-    const {title, date, description} = values;
+    const {name, email, password} = values;
 
     const input = {
-      title,
-      date,
-      description,
+      name,
+      email,
+      password,
     };
 
     const onCompleted = id => {
@@ -37,17 +37,17 @@ const UserCreate = () => {
           <TextInput
             placeholder="Name"
             onChangeText={handleChange('name')}
-            value={values.title}
+            value={values.name}
           />
           <TextInput
             placeholder="email"
             onChangeText={handleChange('email')}
-            value={values.date}
+            value={values.email}
           />
           <TextInput
             placeholder="password"
             onChangeText={handleChange('password')}
-            value={values.description}
+            value={values.password}
           />
           <Button onPress={handleSubmit} title="Create User"></Button>
         </>
