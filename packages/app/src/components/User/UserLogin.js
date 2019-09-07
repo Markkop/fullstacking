@@ -1,25 +1,28 @@
 import React from 'react';
-import {TextInput, Button, ButtonText} from 'react-native';
+import {TextInput, Button} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {Formik} from 'formik';
 import UserLoginMutation from './UserLoginMutation';
 
-const UserLogin = () => {
+const UserLogin = props => {
   const handleSubmit = values => {
-    const {name, email, password} = values;
+    const {email, password} = values;
 
     const input = {
-      name,
       email,
       password,
     };
 
-    const onCompleted = id => {
-      // Some implementation that requires the id from
-      // the new User Logind
-      alert(JSON.stringify(id));
+    const onCompleted = payload => {
+      const _signInAsync = async () => {
+        await AsyncStorage.setItem('userToken', payload.UserLogin.token);
+      };
+      _signInAsync();
+      alert(JSON.stringify(payload));
 
-      // Redirect
-      // this.props.navigation.navigate('UserList');
+      if (payload.UserLogin.token) {
+        props.navigation.navigate('EventList');
+      }
     };
 
     const onError = err => {
@@ -29,25 +32,30 @@ const UserLogin = () => {
     UserLoginMutation.commit(input, onCompleted, onError);
   };
   return (
-    <Formik
-      initialValues={{email: '', password: ''}}
-      onSubmit={values => handleSubmit(values)}>
-      {({values, handleChange, handleSubmit}) => (
-        <>
-          <TextInput
-            placeholder="email"
-            onChangeText={handleChange('email')}
-            value={values.email}
-          />
-          <TextInput
-            placeholder="password"
-            onChangeText={handleChange('password')}
-            value={values.password}
-          />
-          <Button onPress={handleSubmit} title="Login User"></Button>
-        </>
-      )}
-    </Formik>
+    <>
+      <Formik
+        initialValues={{email: '', password: ''}}
+        onSubmit={values => handleSubmit(values)}>
+        {({values, handleChange, handleSubmit}) => (
+          <>
+            <TextInput
+              placeholder="email"
+              onChangeText={handleChange('email')}
+              value={values.email}
+            />
+            <TextInput
+              placeholder="password"
+              onChangeText={handleChange('password')}
+              value={values.password}
+            />
+            <Button onPress={handleSubmit} title="Login User"></Button>
+          </>
+        )}
+      </Formik>
+      <Button
+        onPress={() => props.navigation.navigate('UserCreate')}
+        title="Register User"></Button>
+    </>
   );
 };
 

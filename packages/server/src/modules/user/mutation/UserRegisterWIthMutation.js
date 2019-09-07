@@ -28,6 +28,12 @@ export default mutationWithClientMutationId({
       };
     }
 
+    if (!name | !email | !password) {
+      return {
+        error: "All fields are required"
+      };
+    }
+
     user = new UserModel({
       name,
       email,

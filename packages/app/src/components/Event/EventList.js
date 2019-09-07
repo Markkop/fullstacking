@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
-import {ScrollView, Text} from 'react-native';
+import {ScrollView, View, Text, Button} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 import Environment from '../../relay/Environment';
 import EventCard from './EventCard';
 import EventCreateSubscription from './EventCreateSubscription';
 
-const EventList = ({query}) => {
-  const {events} = query;
+const EventList = props => {
+  const {events} = props.query;
   useEffect(() => EventCreateSubscription(), []);
   return (
     <>
@@ -17,11 +18,27 @@ const EventList = ({query}) => {
           <EventCard key={event.id} event={event} />
         ))}
       </ScrollView>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Button
+          title="Create Event"
+          onPress={() => props.navigation.navigate('EventCreate')}
+        />
+      </View>
+
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Button
+          title="logout"
+          onPress={async () => {
+            await AsyncStorage.removeItem('userToken');
+            return props.navigation.navigate('Auth');
+          }}
+        />
+      </View>
     </>
   );
 };
 
-const EventListQR = () => {
+const EventListQR = componentProps => {
   return (
     <QueryRenderer
       environment={Environment}
@@ -43,7 +60,9 @@ const EventListQR = () => {
         }
 
         if (props) {
-          return <EventList query={props} />;
+          return (
+            <EventList query={props} navigation={componentProps.navigation} />
+          );
         }
 
         return <Text>loading</Text>;

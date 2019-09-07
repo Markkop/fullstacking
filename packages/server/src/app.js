@@ -8,15 +8,24 @@ import graphqlBatchHttpWrapper from "koa-graphql-batch";
 import Router from "koa-router";
 import koaPlayground from "graphql-playground-middleware-koa";
 import { schema } from "./schema";
+import { getUser } from "./auth";
 
 const app = new Koa();
 const router = new Router();
 
-const JWT_KEY = process.env.JWT_KEY || "";
+const graphqlSettingsPerReq = async req => {
+  const { user } = await getUser(req.header.authorization);
 
-app.keys = [JWT_KEY];
+  return {
+    schema,
+    context: {
+      user,
+      req
+    }
+  };
+};
 
-const graphqlServer = graphqlHttp({ schema: schema });
+const graphqlServer = graphqlHttp(graphqlSettingsPerReq);
 
 router.all(
   "/graphql/batch",

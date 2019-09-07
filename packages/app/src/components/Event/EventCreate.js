@@ -1,9 +1,9 @@
 import React from 'react';
-import {TextInput, Button, ButtonText} from 'react-native';
+import {TextInput, Button, View} from 'react-native';
 import {Formik} from 'formik';
 import EventCreateMutation from './EventCreateMutation';
 
-const EventCreate = () => {
+const EventCreate = props => {
   const handleSubmit = values => {
     const {title, date, description} = values;
 
@@ -29,30 +29,38 @@ const EventCreate = () => {
     EventCreateMutation.commit(input, onCompleted, onError);
   };
   return (
-    <Formik
-      initialValues={{title: '', date: '', description: ''}}
-      onSubmit={values => handleSubmit(values)}>
-      {({values, handleChange, handleSubmit}) => (
-        <>
-          <TextInput
-            placeholder="Title"
-            onChangeText={handleChange('title')}
-            value={values.title}
-          />
-          <TextInput
-            placeholder="Date"
-            onChangeText={handleChange('date')}
-            value={values.date}
-          />
-          <TextInput
-            placeholder="Short description"
-            onChangeText={handleChange('description')}
-            value={values.description}
-          />
-          <Button onPress={handleSubmit} title="Add Event"></Button>
-        </>
-      )}
-    </Formik>
+    <>
+      <Formik
+        initialValues={{title: '', date: '', description: ''}}
+        onSubmit={values => handleSubmit(values)}>
+        {({values, handleChange, handleSubmit}) => (
+          <>
+            <TextInput
+              placeholder="Title"
+              onChangeText={handleChange('title')}
+              value={values.title}
+            />
+            <TextInput
+              placeholder="Date"
+              onChangeText={handleChange('date')}
+              value={values.date}
+            />
+            <TextInput
+              placeholder="Short description"
+              onChangeText={handleChange('description')}
+              value={values.description}
+            />
+            <Button onPress={handleSubmit} title="Add Event"></Button>
+          </>
+        )}
+      </Formik>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Button
+          title="Back to List"
+          onPress={() => props.navigation.navigate('EventList')}
+        />
+      </View>
+    </>
   );
 };
 

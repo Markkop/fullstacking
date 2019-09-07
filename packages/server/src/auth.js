@@ -18,6 +18,5 @@ export async function getUser(token) {
 }
 
 export function generateToken(user) {
-  console.log(user);
   return `JWT ${jwt.sign({ id: user._id }, "secret_key")}`;
 }

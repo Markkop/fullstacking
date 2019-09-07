@@ -38,7 +38,6 @@ UserSchema.pre("save", function encryptPasswordHook(next) {
 
 UserSchema.methods = {
   authenticate(plainTextPassword) {
-    console.log(plainTextPassword, this.password);
     return bcrypt.compareSync(plainTextPassword, this.password);
   },
   encryptPassword(password) {
