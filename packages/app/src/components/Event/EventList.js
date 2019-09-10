@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, View, Text, Button} from 'react-native';
+import {ScrollView, View, Text, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
@@ -12,24 +12,24 @@ const EventList = props => {
   //useEffect(() => EventCreateSubscription(), []);
   return (
     <>
-      <Text>Event List</Text>
-      <ScrollView>
-        {events.map(event => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </ScrollView>
-
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.container}>
+        <ScrollView>
+          {events.map(event => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </ScrollView>
+      </View>
+      <View>
+        <Button
+          title="Create Event"
+          onPress={() => props.navigation.navigate('EventCreate')}
+        />
         <Button
           title="logout"
           onPress={async () => {
             await AsyncStorage.removeItem('userToken');
             return props.navigation.navigate('Auth');
           }}
-        />
-        <Button
-          title="Create Event"
-          onPress={() => props.navigation.navigate('EventCreate')}
         />
       </View>
     </>
@@ -69,5 +69,18 @@ const EventListQR = componentProps => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#cccccc',
+  },
+  userContainer: {
+    margin: 20,
+  },
+});
 
 export default EventListQR;

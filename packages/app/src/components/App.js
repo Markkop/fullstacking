@@ -27,3 +27,11 @@ export default createAppContainer(
     },
   ),
 );
+
+EventList.navigationOptions = {
+  header: null,
+};
+
+EventCreate.navigationOptions = {
+  header: null,
+};

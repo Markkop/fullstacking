@@ -54,7 +54,7 @@ const EventCreate = props => {
           </>
         )}
       </Formik>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View>
         <Button
           title="Back to List"
           onPress={() => props.navigation.navigate('EventList')}
