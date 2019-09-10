@@ -5,7 +5,7 @@ type Event {
   title: String
   date: String
   description: String
-  author: User
+  author: String
 }
 
 input EventAddSubscriptionInput {

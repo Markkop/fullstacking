@@ -15,7 +15,7 @@ const fetchQuery = async (request, variables) => {
   const headers = {
     Accept: 'application/json',
     'Content-type': 'application/json',
-    Authorization: `Bearer ${AsyncStorage.getItem('userToken')}`,
+    Authorization: `Bearer ${await AsyncStorage.getItem('userToken')}`,
   };
 
   const response = await fetch(GRAPHQL_URL, {

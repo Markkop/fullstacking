@@ -9,7 +9,7 @@ import EventCreateSubscription from './EventCreateSubscription';
 
 const EventList = props => {
   const {events} = props.query;
-  useEffect(() => EventCreateSubscription(), []);
+  //useEffect(() => EventCreateSubscription(), []);
   return (
     <>
       <Text>Event List</Text>
@@ -18,12 +18,6 @@ const EventList = props => {
           <EventCard key={event.id} event={event} />
         ))}
       </ScrollView>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Button
-          title="Create Event"
-          onPress={() => props.navigation.navigate('EventCreate')}
-        />
-      </View>
 
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Button
@@ -32,6 +26,10 @@ const EventList = props => {
             await AsyncStorage.removeItem('userToken');
             return props.navigation.navigate('Auth');
           }}
+        />
+        <Button
+          title="Create Event"
+          onPress={() => props.navigation.navigate('EventCreate')}
         />
       </View>
     </>
@@ -49,6 +47,7 @@ const EventListQR = componentProps => {
             title
             date
             description
+            author
           }
         }
       `}

@@ -14,12 +14,11 @@ const app = new Koa();
 const router = new Router();
 
 const graphqlSettingsPerReq = async req => {
-  const { user } = await getUser(req.header.authorization);
-
+  const { currentUser } = await getUser(req.header.authorization);
   return {
     schema,
     context: {
-      user,
+      currentUser,
       req
     }
   };

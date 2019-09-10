@@ -2,18 +2,18 @@ import jwt from "jsonwebtoken";
 import User from "./modules/user/UserModel";
 
 export async function getUser(token) {
-  if (!token) return { user: null };
-
+  if (!token) return { currentUser: null };
+  console.log("Token itself: ", token.split(" ")[2]);
   try {
-    const decodedToken = jwt.verify(token.substring(4), "secret_key");
-
-    const user = await User.findOne({ _id: decodedToken.id });
+    const decodedToken = jwt.verify(token.split(" ")[2], "secret_key");
+    const currentUser = await User.findOne({ _id: decodedToken.id });
 
     return {
-      user
+      currentUser
     };
   } catch (err) {
-    return { user: null };
+    console.log("JWT Error: ", err.name);
+    return { currentUser: null };
   }
 }
 

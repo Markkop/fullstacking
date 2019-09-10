@@ -9,6 +9,13 @@ const UserType = new GraphQLObjectType({
     id: globalIdField("users"),
     _id: { type: GraphQLString },
     name: { type: GraphQLString },
+    // name: {
+    //   type: GraphQLString,
+    //   args: {
+    //     nick: GraphQLBoolean
+    //   },
+    //   resolve: (obj, args, context, info) => UserLoader.load(context)
+    // },
     email: { type: GraphQLString },
     active: { type: GraphQLBoolean }
   })
