@@ -16,7 +16,6 @@ const EventType = new GraphQLObjectType({
     author: {
       type: GraphQLString,
       resolve: (obj, args, context, info) => {
-        console.log("Obj:", obj);
         return obj.author.name;
       }
     }

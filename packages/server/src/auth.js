@@ -3,7 +3,7 @@ import User from "./modules/user/UserModel";
 
 export async function getUser(token) {
   if (!token) return { currentUser: null };
-  console.log("Token itself: ", token.split(" ")[2]);
+  // console.log("Token itself: ", token.split(" ")[2]);
   try {
     const decodedToken = jwt.verify(token.split(" ")[2], "secret_key");
     const currentUser = await User.findOne({ _id: decodedToken.id });

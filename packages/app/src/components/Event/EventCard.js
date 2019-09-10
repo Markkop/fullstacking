@@ -2,7 +2,6 @@ import React from 'react';
 import {Text} from 'react-native';
 
 const EventCard = ({event}) => {
-  console.warn(event);
   return (
     <>
       <Text>Title: {event.title}</Text>
