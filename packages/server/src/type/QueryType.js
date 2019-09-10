@@ -7,6 +7,8 @@ const {
 const { fromGlobalId } = require("graphql-relay");
 const EventType = require("../modules/event/EventType");
 const EventModel = require("../modules/event/EventModel");
+const UserType = require("../modules/user/UserType");
+const UserModel = require("../modules/user/UserModel");
 
 export default new GraphQLObjectType({
   name: "Query",
@@ -23,6 +25,13 @@ export default new GraphQLObjectType({
       type: GraphQLList(EventType),
       resolve() {
         return EventModel.find();
+      }
+    },
+    users: {
+      type: UserType,
+      args: { id: { type: GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return UserModel.findById(fromGlobalId(args.id).id);
       }
     }
   })

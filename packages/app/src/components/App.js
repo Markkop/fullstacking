@@ -1,17 +1,29 @@
 import React from 'react';
-import {createAppContainer} from 'react-navigation';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import EventList from './EventList';
-import EventCreate from './EventCreate';
+import EventList from './Event/EventList';
+import EventCreate from './Event/EventCreate';
+import UserCreate from './User/UserCreate';
+import UserLogin from './User/UserLogin';
+import AuthLoadingScreen from './AuthLoadingScreen';
 
-const App = createMaterialTopTabNavigator(
-  {
-    EventCreate: {screen: EventCreate},
-    EventList: {screen: EventList},
-  },
-  {
-    initialRouteName: 'EventList',
-  },
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+
+const AppStack = createStackNavigator({
+  EventList: {screen: EventList},
+  EventCreate: {screen: EventCreate},
+  UserCreate: {screen: UserCreate},
+});
+const AuthStack = createStackNavigator({UserLogin: {screen: UserLogin}});
+
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppStack,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: 'AuthLoading',
+    },
+  ),
 );
-
-export default createAppContainer(App);

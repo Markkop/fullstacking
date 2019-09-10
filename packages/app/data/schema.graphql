@@ -1,5 +1,7 @@
 type Event {
-  """The ID of an object"""
+  """
+  The ID of an object
+  """
   id: ID!
   _id: String
   title: String
@@ -8,8 +10,13 @@ type Event {
   author: String
 }
 
-type EventAddSubscription {
+input EventAddSubscriptionInput {
+  clientSubscriptionId: String
+}
+
+type EventAddSubscriptionPayload {
   subscription: Event
+  clientSubscriptionId: String
 }
 
 input EventCreateInput {
@@ -26,14 +33,57 @@ type EventCreatePayload {
 
 type Mutation {
   EventCreate(input: EventCreateInput!): EventCreatePayload
+  UserCreate(input: UserRegisterWithEmailInput!): UserRegisterWithEmailPayload
+  UserLogin(input: UserLoginWithEmailInput!): UserLoginWithEmailPayload
 }
 
-"""The root of all... queries"""
+"""
+The root of all... queries
+"""
 type Query {
   event(id: ID!): Event
   events: [Event]
+  users(id: ID!): User
 }
 
 type Subscription {
-  EventAddSubscription: EventAddSubscription
+  EventAddSubscription(
+    input: EventAddSubscriptionInput!
+  ): EventAddSubscriptionPayload
+}
+
+type User {
+  """
+  The ID of an object
+  """
+  id: ID!
+  _id: String
+  name: String
+  email: String
+  active: Boolean
+}
+
+input UserLoginWithEmailInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLoginWithEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+input UserRegisterWithEmailInput {
+  name: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserRegisterWithEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
 }

@@ -1,5 +1,6 @@
 import {Variables, UploadableMap} from 'react-relay';
 import {RequestNode} from 'relay-runtime';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const GRAPHQL_URL = 'http://localhost:3000/graphql';
 
@@ -14,6 +15,7 @@ const fetchQuery = async (request, variables) => {
   const headers = {
     Accept: 'application/json',
     'Content-type': 'application/json',
+    Authorization: `Bearer ${await AsyncStorage.getItem('userToken')}`,
   };
 
   const response = await fetch(GRAPHQL_URL, {

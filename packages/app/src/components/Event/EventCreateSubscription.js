@@ -1,5 +1,5 @@
 import {graphql, requestSubscription} from 'react-relay';
-import environment from '../relay/Environment';
+import environment from '../../relay/Environment';
 
 const EventCreateSubscription = graphql`
   subscription EventCreateSubscription {
