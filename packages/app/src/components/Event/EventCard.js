@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 40,
+    paddingTop: 5,
     backgroundColor: '#ecf0f1',
   },
   paragraph: {
