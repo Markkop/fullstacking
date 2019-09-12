@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
+    "@react-native-community/datetimepicker": "^2.0.0",
     "axios": "^0.19.0",
     "formik": "^1.5.8",
     "react": "16.8.6",
@@ -24,7 +25,8 @@
     "react-navigation-stack": "^1.5.1",
     "react-navigation-tabs": "^2.3.0",
     "react-relay": "^5.0.0",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

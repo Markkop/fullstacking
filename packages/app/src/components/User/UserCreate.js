@@ -1,7 +1,8 @@
 import React from 'react';
-import {TextInput, Button, ButtonText} from 'react-native';
+import {TextInput, Button, Text} from 'react-native';
 import {Formik} from 'formik';
 import UserCreateMutation from './UserCreateMutation';
+import * as yup from 'yup';
 
 const UserCreate = props => {
   const handleSubmit = values => {
@@ -34,25 +35,52 @@ const UserCreate = props => {
     <>
       <Formik
         initialValues={{name: '', email: '', password: ''}}
-        onSubmit={values => handleSubmit(values)}>
-        {({values, handleChange, handleSubmit}) => (
+        onSubmit={values => handleSubmit(values)}
+        validationSchema={yup.object().shape({
+          name: yup.string().required('Name is required'),
+          email: yup
+            .string()
+            .email('Not a valid e-mail')
+            .required('E-mail is required'),
+          password: yup.string().required('Password is required'),
+        })}>
+        {({values, handleChange, handleSubmit, errors, isValid, touched}) => (
           <>
             <TextInput
               placeholder="Name"
               onChangeText={handleChange('name')}
               value={values.name}
             />
+
             <TextInput
               placeholder="email"
               onChangeText={handleChange('email')}
               value={values.email}
             />
+
             <TextInput
               placeholder="password"
               onChangeText={handleChange('password')}
+              secureTextEntry={true}
               value={values.password}
             />
-            <Button onPress={handleSubmit} title="Create User"></Button>
+            {/* To Do: convert this to error component */}
+            {touched.name && errors.name && (
+              <Text style={{fontSize: 10, color: 'red'}}>{errors.name}</Text>
+            )}
+            {touched.email && errors.email && (
+              <Text style={{fontSize: 10, color: 'red'}}>{errors.email}</Text>
+            )}
+            {touched.password && errors.password && (
+              <Text style={{fontSize: 10, color: 'red'}}>
+                {errors.password}
+              </Text>
+            )}
+
+            <Button
+              onPress={handleSubmit}
+              // disabled={!isValid}
+              title="Create User"></Button>
           </>
         )}
       </Formik>

@@ -29,5 +29,6 @@
   "bugs": {
     "url": "https://github.com/Markkop/fullstacking/issues"
   },
-  "homepage": "https://github.com/Markkop/fullstacking#readme"
+  "homepage": "https://github.com/Markkop/fullstacking#readme",
+  "dependencies": {}
 }
