@@ -2,6 +2,9 @@ import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import {Card} from 'react-native-elements';
 
+// To Do: change the date's color to better represent
+// it's proximity to the current date
+
 const EventCard = ({event}) => {
   return (
     <View style={styles.container}>

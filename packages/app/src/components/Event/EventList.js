@@ -13,6 +13,8 @@ import {QueryRenderer} from 'react-relay';
 import Environment from '../../relay/Environment';
 import EventCard from './EventCard';
 
+// To Do: Sort events by createdAt
+
 function wait(timeout) {
   return new Promise(resolve => {
     setTimeout(resolve, timeout);
