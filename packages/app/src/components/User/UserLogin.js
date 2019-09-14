@@ -15,8 +15,6 @@ const UserLogin = props => {
     };
 
     const onCompleted = async payload => {
-      console.warn(payload);
-
       if (payload.UserLogin.error) {
         Snackbar.show({
           title: payload.UserLogin.error,
@@ -29,7 +27,7 @@ const UserLogin = props => {
       if (payload.UserLogin.token) {
         await AsyncStorage.setItem('userToken', payload.UserLogin.token);
         Snackbar.show({
-          title: `Welcome user`,
+          title: `Welcome ${payload.UserLogin.name}`,
           duration: Snackbar.LENGTH_LONG,
           backgroundColor: 'green',
           color: 'white',
