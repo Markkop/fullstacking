@@ -2,11 +2,10 @@ import React, {useState} from 'react';
 import {TextInput, Button, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Formik} from 'formik';
+import Snackbar from 'react-native-snackbar';
 import UserLoginMutation from './UserLoginMutation';
 
 const UserLogin = props => {
-  const [text, setText] = useState('');
-
   const handleSubmit = values => {
     const {email, password} = values;
 
@@ -15,19 +14,18 @@ const UserLogin = props => {
       password,
     };
 
-    const onCompleted = payload => {
-      const _signInAsync = async () => {
-        await AsyncStorage.setItem('userToken', payload.UserLogin.token);
-      };
-
-      _signInAsync();
-
-      //alert(JSON.stringify(payload));
+    const onCompleted = async payload => {
       if (payload.UserLogin.error) {
-        setText(payload.UserLogin.error);
+        Snackbar.show({
+          title: payload.UserLogin.error,
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: 'blue',
+          color: 'white',
+        });
       }
 
       if (payload.UserLogin.token) {
+        await AsyncStorage.setItem('userToken', payload.UserLogin.token);
         props.navigation.navigate('EventList');
       }
     };
@@ -37,8 +35,6 @@ const UserLogin = props => {
     };
 
     UserLoginMutation.commit(input, onCompleted, onError);
-
-    return;
   };
   return (
     <>
@@ -57,7 +53,6 @@ const UserLogin = props => {
               onChangeText={handleChange('password')}
               value={values.password}
             />
-            <Text style={{fontSize: 10, color: 'red'}}>{text}</Text>
             <Button onPress={handleSubmit} title="Login User"></Button>
           </>
         )}
