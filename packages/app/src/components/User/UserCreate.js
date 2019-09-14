@@ -2,6 +2,7 @@ import React from 'react';
 import {TextInput, Button, Text} from 'react-native';
 import {Formik} from 'formik';
 import UserCreateMutation from './UserCreateMutation';
+import Snackbar from 'react-native-snackbar';
 import * as yup from 'yup';
 
 const UserCreate = props => {
@@ -15,9 +16,12 @@ const UserCreate = props => {
     };
 
     const onCompleted = returnedObject => {
-      // Some implementation that requires the id from
-      // the new User created
-      alert(JSON.stringify(returnedObject));
+      Snackbar.show({
+        title: `Nice to meet you, ${name}. Please log in`,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: 'green',
+        color: 'white',
+      });
 
       // Redirect
       if (returnedObject.UserCreate.token) {

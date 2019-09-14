@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput, Button, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Formik} from 'formik';
@@ -15,17 +15,25 @@ const UserLogin = props => {
     };
 
     const onCompleted = async payload => {
+      console.warn(payload);
+
       if (payload.UserLogin.error) {
         Snackbar.show({
           title: payload.UserLogin.error,
-          duration: Snackbar.LENGTH_SHORT,
-          backgroundColor: 'blue',
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: 'red',
           color: 'white',
         });
       }
 
       if (payload.UserLogin.token) {
         await AsyncStorage.setItem('userToken', payload.UserLogin.token);
+        Snackbar.show({
+          title: `Welcome user`,
+          duration: Snackbar.LENGTH_LONG,
+          backgroundColor: 'green',
+          color: 'white',
+        });
         props.navigation.navigate('EventList');
       }
     };
