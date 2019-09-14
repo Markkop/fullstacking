@@ -36,7 +36,7 @@ const EventList = props => {
   const addNewEvent = async () => {
     const newEvent = await AsyncStorage.getItem('newEvent');
     if (newEvent) {
-      setEvents([...events, JSON.parse(newEvent)]);
+      setEvents([JSON.parse(newEvent), ...events]);
       await AsyncStorage.removeItem('newEvent');
     }
   };
