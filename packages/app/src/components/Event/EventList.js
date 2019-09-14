@@ -1,19 +1,53 @@
-import React, {useEffect} from 'react';
-import {ScrollView, View, Text, Button, StyleSheet} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  RefreshControl,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 import Environment from '../../relay/Environment';
 import EventCard from './EventCard';
-import EventCreateSubscription from './EventCreateSubscription';
+
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
 const EventList = props => {
-  const {events} = props.query;
-  //useEffect(() => EventCreateSubscription(), []);
+  const [refreshing, setRefreshing] = useState(false);
+  const [events, setEvents] = useState(props.query.events);
+  //let {events} = props.query;
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    addNewEvent();
+    wait(200).then(() => setRefreshing(false));
+  }, [refreshing]);
+
+  // addNewEvent get the event object from somewhere and
+  // adds it to current products list
+  // To Do: change it to GraphQL's subscription instead
+  const addNewEvent = async () => {
+    const newEvent = await AsyncStorage.getItem('newEvent');
+    if (newEvent) {
+      setEvents([...events, JSON.parse(newEvent)]);
+      await AsyncStorage.removeItem('newEvent');
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           {events.map(event => (
             <EventCard key={event.id} event={event} />
           ))}

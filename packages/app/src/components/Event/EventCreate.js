@@ -4,6 +4,8 @@ import {Formik} from 'formik';
 import EventCreateMutation from './EventCreateMutation';
 import * as yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Snackbar from 'react-native-snackbar';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const EventCreate = props => {
   const handleSubmit = values => {
@@ -15,17 +17,33 @@ const EventCreate = props => {
       description,
     };
 
-    const onCompleted = id => {
-      // Some implementation that requires the id from
-      // the new event created
-      alert(JSON.stringify(id));
+    const onCompleted = async id => {
+      Snackbar.show({
+        title: 'Event created',
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: 'green',
+        color: 'white',
+      });
+
+      // saveEvent is used to save the event somewhere
+      // so it can be added in the EventList without connection
+      // To Do: change it to GraphQL's subscription instead
+      const saveEvent = async () => {
+        const event = {
+          ...input,
+          author: 'You!',
+          id: Math.random(),
+        };
+        return await AsyncStorage.setItem('newEvent', JSON.stringify(event));
+      };
+      saveEvent();
 
       // Redirect
-      // this.props.navigation.navigate('UserList');
+      props.navigation.navigate('EventList');
     };
 
     const onError = err => {
-      console.error(err);
+      console.log(err);
     };
 
     EventCreateMutation.commit(input, onCompleted, onError);
