@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextInput, Button, View, Text} from 'react-native';
 import {Formik} from 'formik';
 import EventCreateMutation from './EventCreateMutation';
@@ -7,7 +7,28 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Snackbar from 'react-native-snackbar';
 import AsyncStorage from '@react-native-community/async-storage';
 
+// To Do: Date + TimePicker
+
+const DatePicker = ({value, onChange, setDate, setShow}) => {
+  return (
+    <DateTimePicker
+      value={value}
+      mode={'date'}
+      is24Hour={true}
+      display="default"
+      onChange={val => {
+        const newDate = new Date(val.nativeEvent.timestamp);
+        setShow(false);
+        setDate(newDate);
+        onChange('date', newDate);
+      }}
+    />
+  );
+};
+
 const EventCreate = props => {
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
   const handleSubmit = values => {
     const {title, date, description} = values;
 
@@ -51,26 +72,49 @@ const EventCreate = props => {
   return (
     <>
       <Formik
-        initialValues={{title: '', date: '', description: ''}}
+        initialValues={{
+          title: '',
+          date: date,
+          description: '',
+        }}
         onSubmit={values => handleSubmit(values)}
         validationSchema={yup.object().shape({
           title: yup.string().required('Title is required'),
           description: yup.string().required('Description is required'),
-          date: yup.string().required('Date is required'),
+          date: yup.date().required('Date is required'),
         })}>
-        {({values, handleChange, handleSubmit, touched, errors}) => (
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          touched,
+          errors,
+          setFieldValue,
+        }) => (
           <>
             <TextInput
               placeholder="Title"
               onChangeText={handleChange('title')}
               value={values.title}
             />
-            {/* To Do: Create Date Picker */}
-            <TextInput
-              placeholder="Date"
-              onChangeText={handleChange('date')}
-              value={values.date}
+            {/* To Do: Is there a better way to code this DatePicker? */}
+            <Button
+              title={date
+                .toString()
+                .split(' ')
+                .slice(0, 4)
+                .join(' ')}
+              onPress={() => setShow(true)}
             />
+            {show && (
+              <DatePicker
+                value={values.date}
+                onChange={setFieldValue}
+                setDate={setDate}
+                setShow={setShow}
+              />
+            )}
+
             <TextInput
               placeholder="Short description"
               onChangeText={handleChange('description')}
