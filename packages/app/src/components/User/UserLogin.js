@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput, Button, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Formik} from 'formik';
 import UserLoginMutation from './UserLoginMutation';
 
 const UserLogin = props => {
-  let loginError;
+  const [text, setText] = useState('');
+
   const handleSubmit = values => {
     const {email, password} = values;
 
@@ -23,8 +24,7 @@ const UserLogin = props => {
 
       //alert(JSON.stringify(payload));
       if (payload.UserLogin.error) {
-        alert(payload.UserLogin.error);
-        loginError = payload.UserLogin.error;
+        setText(payload.UserLogin.error);
       }
 
       if (payload.UserLogin.token) {
@@ -38,7 +38,7 @@ const UserLogin = props => {
 
     UserLoginMutation.commit(input, onCompleted, onError);
 
-    return loginError;
+    return;
   };
   return (
     <>
@@ -57,9 +57,7 @@ const UserLogin = props => {
               onChangeText={handleChange('password')}
               value={values.password}
             />
-            {loginError && (
-              <Text style={{fontSize: 10, color: 'red'}}>{loginError}</Text>
-            )}
+            <Text style={{fontSize: 10, color: 'red'}}>{text}</Text>
             <Button onPress={handleSubmit} title="Login User"></Button>
           </>
         )}
