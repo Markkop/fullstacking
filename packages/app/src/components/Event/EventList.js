@@ -2,10 +2,8 @@ import React, {useState} from 'react';
 import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
-import {QueryRenderer} from 'react-relay';
-import Environment from '../../relay/Environment';
 import EventCard from './EventCard';
-import { createQueryRendererModern } from './relay';
+import {createQueryRendererModern} from '../../relay/createModernQueryRendererModern';
 
 // To Do: Sort events by createdAt
 
@@ -89,16 +87,13 @@ const EventList = props => {
   );
 };
 
-
 const EventListPaginationContainer = createPaginationContainer(
   EventList,
   {
     query: graphql`
       fragment EventList_query on Query {
-        users(
-          first: $count
-          after: $cursor
-        ) @connection(key: "EventList_users") {
+        events(first: $count, after: $cursor)
+          @connection(key: "EventList_events") {
           pageInfo {
             hasNextPage
             endCursor
@@ -113,13 +108,13 @@ const EventListPaginationContainer = createPaginationContainer(
             }
           }
         }
-      } 
+      }
     `,
   },
   {
     direction: 'forward',
     getConnectionFromProps(props) {
-      return props.query && props.query.users;
+      return props.query && props.query.events;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -127,41 +122,20 @@ const EventListPaginationContainer = createPaginationContainer(
         count: totalCount,
       };
     },
-    getVariables(props, { count, cursor }, fragmentVariables) {
+    getVariables(props, {count, cursor}, fragmentVariables) {
       return {
         count,
         cursor,
       };
     },
-    variables: { cursor: null },
+    variables: {cursor: null},
     query: graphql`
-      query EventListPaginationQuery (
-        $count: Int!,
-        $cursor: String
-      ) {
+      query EventListPaginationQuery($count: Int!, $cursor: String) {
         ...EventList_query
       }
     `,
   },
 );
-
-
-export default
-  createQueryRendererModern(
-    EventListPaginationContainer,
-    EventList,
-    {
-      query: graphql`
-        query EventListQuery(
-          $count: Int!,
-          $cursor: String
-        ) {
-          ...EventList_query
-        }
-      `,
-      variables: {cursor: null, count: 1},
-    },
-  );
 
 const styles = StyleSheet.create({
   container: {
@@ -176,4 +150,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventListQR;
+export default createQueryRendererModern(
+  EventListPaginationContainer,
+  EventList,
+  {
+    query: graphql`
+      query EventListQuery($count: Int!, $cursor: String) {
+        ...EventList_query
+      }
+    `,
+    variables: {cursor: null, count: 1},
+  },
+);

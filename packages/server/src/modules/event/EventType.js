@@ -1,10 +1,14 @@
-const graphql = require("graphql");
-const globalIdField = require("graphql-relay").globalIdField;
-const UserType = require("../user/UserType");
-const UserModel = require("../user/UserModel");
+import { globalIdField } from "graphql-relay";
+import { connectionDefinitions } from "../CustomConnectionType";
+import { nodeInterface } from "../../type/QueryType";
+import {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLBoolean,
+  GraphQLNonNull
+} from "graphql";
 
-const { GraphQLObjectType, GraphQLString } = graphql;
-
+console.log(connectionDefinitions);
 const EventType = new GraphQLObjectType({
   name: "Event",
   fields: () => ({
@@ -19,7 +23,13 @@ const EventType = new GraphQLObjectType({
         return obj.author.name;
       }
     }
-  })
+  }),
+  interfaces: () => [nodeInterface]
 });
 
-module.exports = EventType;
+export default EventType;
+
+export const EventConnection = connectionDefinitions({
+  name: "Event",
+  nodeType: GraphQLNonNull(EventType)
+});
