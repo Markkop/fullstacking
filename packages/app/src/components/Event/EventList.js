@@ -5,6 +5,7 @@ import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
 import Environment from '../../relay/Environment';
 import EventCard from './EventCard';
+import { createQueryRendererModern } from './relay';
 
 // To Do: Sort events by createdAt
 
@@ -47,6 +48,7 @@ const EventList = props => {
   // addNewEvent get the event object from somewhere and
   // adds it to current products list
   // To Do: change it to GraphQL's subscription instead
+  // Updated: it is possible to use state hooks. To do.
   const addNewEvent = async () => {
     const newEvent = await AsyncStorage.getItem('newEvent');
     if (newEvent) {
@@ -59,7 +61,7 @@ const EventList = props => {
     <>
       <View style={styles.container}>
         <FlatList
-          data={users.edges}
+          data={events.edges}
           renderItem={renderItem}
           keyExtractor={item => item.node.id}
           onEndReached={onEndReached}
@@ -87,39 +89,79 @@ const EventList = props => {
   );
 };
 
-const EventListQR = componentProps => {
-  return (
-    <QueryRenderer
-      environment={Environment}
-      query={graphql`
-        query EventListQuery {
-          events {
-            id
-            title
-            date
-            description
-            author
+
+const EventListPaginationContainer = createPaginationContainer(
+  EventList,
+  {
+    query: graphql`
+      fragment EventList_query on Query {
+        users(
+          first: $count
+          after: $cursor
+        ) @connection(key: "EventList_users") {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          edges {
+            node {
+              id
+              title
+              date
+              description
+              author
+            }
           }
         }
-      `}
-      variables={{}}
-      render={({error, props}) => {
-        console.log('qr: ', error, props);
-        if (error) {
-          return <Text>{error.toString()}</Text>;
-        }
+      } 
+    `,
+  },
+  {
+    direction: 'forward',
+    getConnectionFromProps(props) {
+      return props.query && props.query.users;
+    },
+    getFragmentVariables(prevVars, totalCount) {
+      return {
+        ...prevVars,
+        count: totalCount,
+      };
+    },
+    getVariables(props, { count, cursor }, fragmentVariables) {
+      return {
+        count,
+        cursor,
+      };
+    },
+    variables: { cursor: null },
+    query: graphql`
+      query EventListPaginationQuery (
+        $count: Int!,
+        $cursor: String
+      ) {
+        ...EventList_query
+      }
+    `,
+  },
+);
 
-        if (props) {
-          return (
-            <EventList query={props} navigation={componentProps.navigation} />
-          );
-        }
 
-        return <Text>loading</Text>;
-      }}
-    />
+export default
+  createQueryRendererModern(
+    EventListPaginationContainer,
+    EventList,
+    {
+      query: graphql`
+        query EventListQuery(
+          $count: Int!,
+          $cursor: String
+        ) {
+          ...EventList_query
+        }
+      `,
+      variables: {cursor: null, count: 1},
+    },
   );
-};
 
 const styles = StyleSheet.create({
   container: {
