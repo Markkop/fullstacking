@@ -8,7 +8,6 @@ import {
   GraphQLNonNull
 } from "graphql";
 
-console.log(connectionDefinitions);
 const EventType = new GraphQLObjectType({
   name: "Event",
   fields: () => ({
