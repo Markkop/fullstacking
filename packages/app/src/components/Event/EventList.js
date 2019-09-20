@@ -1,12 +1,5 @@
-import React, {useState, useCallback} from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  RefreshControl,
-} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {QueryRenderer} from 'react-relay';
@@ -15,22 +8,41 @@ import EventCard from './EventCard';
 
 // To Do: Sort events by createdAt
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
-
 const EventList = props => {
-  const [refreshing, setRefreshing] = useState(false);
   const [events, setEvents] = useState(props.query.events);
+  const [isFetchingTop, setIsFetchingTop] = useState(false);
   //let {events} = props.query;
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    addNewEvent();
-    wait(200).then(() => setRefreshing(false));
-  }, [refreshing]);
+  const onRefresh = () => {
+    const {events} = props.query;
+
+    if (props.relay.isLoading()) {
+      return;
+    }
+
+    setIsFetchingTop(true);
+
+    props.relay.refetchConnection(events.edges.length, err => {
+      setIsFetchingTop(false);
+    });
+  };
+
+  onEndReached = () => {
+    if (!props.relay.hasMore() || props.relay.isLoading()) {
+      return;
+    }
+
+    // fetch more 2
+    props.relay.loadMore(2, err => {
+      console.log('loadMore: ', err);
+    });
+  };
+
+  renderItem = ({item}) => {
+    const {node} = item;
+
+    return <EventCard event={node} />;
+  };
 
   // addNewEvent get the event object from somewhere and
   // adds it to current products list
@@ -46,15 +58,18 @@ const EventList = props => {
   return (
     <>
       <View style={styles.container}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          {events.map(event => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </ScrollView>
+        <FlatList
+          data={users.edges}
+          renderItem={renderItem}
+          keyExtractor={item => item.node.id}
+          onEndReached={onEndReached}
+          onRefresh={onRefresh}
+          refreshing={isFetchingTop}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ListFooterComponent={renderFooter}
+        />
       </View>
+
       <View>
         <Button
           title="Create Event"
