@@ -1,30 +1,27 @@
-const {
+import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
   GraphQLList,
   GraphQLNonNull
-} = require("graphql");
-const {
-  connectionArgs,
-  fromGlobalId,
-  nodeDefinitions
-} = require("graphql-relay");
-const EventModel = require("../modules/event/EventModel");
-const UserType = require("../modules/user/UserType");
-const UserModel = require("../modules/user/UserModel");
+} from "graphql";
+import { connectionArgs, fromGlobalId, nodeDefinitions } from "graphql-relay";
+import EventModel from "../modules/event/EventModel";
+import UserType from "../modules/user/UserType";
+import UserModel from "../modules/user/UserModel";
 import EventType, { EventConnection } from "../modules/event/EventType";
 
-export const { nodeField, nodeInterface } = nodeDefinitions(
-  (globalId, context) => {
-    const { type, id } = fromGlobalId(globalId);
-    // TODO - convert loaders to Loaders
-    const loader = loaders[`${type}Loader`];
+const registeredTypes = {}; // This const is not recognized in the function bellow
 
-    return (loader && loader.load(context, id)) || null;
-  },
-  object => registeredTypes[object.constructor.name] || null
-);
+export function registerType(type) {
+  registeredTypes[type.name] = type;
+  return type;
+}
+
+export const { nodeField, nodeInterface } = nodeDefinitions(object => {
+  console.log(object); // The error is happening before this
+  return registeredTypes[object.constructor.name] || null;
+});
 
 export default new GraphQLObjectType({
   name: "Query",
