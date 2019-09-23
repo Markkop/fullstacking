@@ -13,13 +13,13 @@ import EventType, { EventConnection } from "../modules/event/EventType";
 
 const registeredTypes = {}; // This const is not recognized in the function bellow
 
-export function registerType(type) {
-  registeredTypes[type.name] = type;
-  return type;
-}
+// export function registerType(type) {
+//   console.log(type)
+//   registeredTypes[type.name] = type;
+//   return type;
+// }
 
 export const { nodeField, nodeInterface } = nodeDefinitions(object => {
-  console.log(object); // The error is happening before this
   return registeredTypes[object.constructor.name] || null;
 });
 
@@ -43,8 +43,8 @@ export default new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve(parent, args) {
-        return EventModel.find();
+      resolve: async (parent, args) => {
+        return await EventModel.find();
       }
     },
     user: {

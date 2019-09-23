@@ -2,12 +2,16 @@ import React, {useState} from 'react';
 import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
+import {
+  createPaginationContainer,
+} from 'react-relay';
 import EventCard from './EventCard';
-import {createQueryRendererModern} from '../../relay/createModernQueryRendererModern';
+import createQueryRendererModern from '../../relay/createModernQueryRendererModern';
 
 // To Do: Sort events by createdAt
 
 const EventList = props => {
+  console.log(props)
   const [events, setEvents] = useState(props.query.events);
   const [isFetchingTop, setIsFetchingTop] = useState(false);
   //let {events} = props.query;
@@ -66,7 +70,7 @@ const EventList = props => {
           onRefresh={onRefresh}
           refreshing={isFetchingTop}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          ListFooterComponent={renderFooter}
+          ListFooterComponent={null}
         />
       </View>
 

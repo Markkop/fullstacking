@@ -4,7 +4,7 @@ import {QueryRenderer} from 'react-relay';
 
 import Environment from './Environment';
 
-export default function createQueryRenderer(FragmentComponent, config) {
+export default function createQueryRenderer(FragmentComponent, Component, config) {
   const {query, queriesParams} = config;
 
   class QueryRendererWrapper extends React.Component {

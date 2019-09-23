@@ -8,7 +8,7 @@ import {
   GraphQLNonNull
 } from "graphql";
 
-const EventType = registerType(
+const EventType = 
   new GraphQLObjectType({
     name: "Event", // It seems some error with this type, which "name" is not found, but "default" is
     fields: () => ({
@@ -26,7 +26,7 @@ const EventType = registerType(
     }),
     interfaces: () => [nodeInterface]
   })
-);
+
 export default EventType;
 
 export const EventConnection = connectionDefinitions({
