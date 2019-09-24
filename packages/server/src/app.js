@@ -9,17 +9,28 @@ import Router from "koa-router";
 import koaPlayground from "graphql-playground-middleware-koa";
 import { schema } from "./schema";
 import { getUser } from "./auth";
+import * as loaders from './loader';
 
 const app = new Koa();
 const router = new Router();
 
 const graphqlSettingsPerReq = async req => {
   const { currentUser } = await getUser(req.header.authorization);
+
+  const dataloaders = Object.keys(loaders).reduce(
+    (acc, loaderKey) => ({
+      ...acc,
+      [loaderKey]: loaders[loaderKey].getLoader(),
+    }),
+    {},
+  );
+
   return {
     schema,
     context: {
       currentUser,
-      req
+      req,
+      dataloaders
     }
   };
 };

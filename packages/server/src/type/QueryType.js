@@ -10,6 +10,7 @@ import EventModel from "../modules/event/EventModel";
 import UserType from "../modules/user/UserType";
 import UserModel from "../modules/user/UserModel";
 import EventType, { EventConnection } from "../modules/event/EventType";
+import { EventLoader } from '../loader';
 
 const registeredTypes = {}; // This const is not recognized in the function bellow
 
@@ -43,9 +44,8 @@ export default new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve: async (parent, args) => {
-        return await EventModel.find();
-      }
+      resolve: (obj, args, context) => {
+        return EventLoader.loadEvents(context, args)},
     },
     user: {
       type: UserType,
