@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@entria/graphql-mongoose-loader": "^4.2.0",
     "bcryptjs": "^2.4.3",
+    "dataloader": "^1.4.0",
     "graphql": "^14.5.4",
     "graphql-compiler": "^1.7.0",
     "graphql-playground-middleware-koa": "^1.6.12",

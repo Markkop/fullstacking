@@ -2,39 +2,33 @@ import React, {useState} from 'react';
 import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
+import {
+  createRefetchContainer,
+} from 'react-relay';
 import EventCard from './EventCard';
-import {createQueryRendererModern} from '../../relay/createModernQueryRendererModern';
+import createQueryRendererModern from '../../relay/createModernQueryRendererModern';
 
 // To Do: Sort events by createdAt
 
 const EventList = props => {
+  console.log(props)
   const [events, setEvents] = useState(props.query.events);
   const [isFetchingTop, setIsFetchingTop] = useState(false);
   //let {events} = props.query;
 
   const onRefresh = () => {
-    const {events} = props.query;
+    // const {events} = props.query;
+    // Add refresh to refetch list 
 
-    if (props.relay.isLoading()) {
-      return;
-    }
-
-    setIsFetchingTop(true);
-
-    props.relay.refetchConnection(events.edges.length, err => {
-      setIsFetchingTop(false);
-    });
   };
 
   onEndReached = () => {
-    if (!props.relay.hasMore() || props.relay.isLoading()) {
-      return;
-    }
-
-    // fetch more 2
-    props.relay.loadMore(2, err => {
-      console.log('loadMore: ', err);
+    console.log()
+    const refetchVariables = fragmentVariables => ({
+      count: fragmentVariables.count + 10,
     });
+    props.relay.refetch(refetchVariables);
+    
   };
 
   renderItem = ({item}) => {
@@ -66,7 +60,7 @@ const EventList = props => {
           onRefresh={onRefresh}
           refreshing={isFetchingTop}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          ListFooterComponent={renderFooter}
+          ListFooterComponent={null}
         />
       </View>
 
@@ -87,11 +81,15 @@ const EventList = props => {
   );
 };
 
-const EventListPaginationContainer = createPaginationContainer(
+const EventListPaginationContainer = createRefetchContainer(
   EventList,
   {
     query: graphql`
-      fragment EventList_query on Query {
+      fragment EventList_query on Query  
+      @argumentDefinitions(
+        count: {type: "Int", defaultValue: 10}
+        cursor: {type: "String"}
+      ) {
         events(first: $count, after: $cursor)
           @connection(key: "EventList_events") {
           pageInfo {
@@ -111,30 +109,11 @@ const EventListPaginationContainer = createPaginationContainer(
       }
     `,
   },
-  {
-    direction: 'forward',
-    getConnectionFromProps(props) {
-      return props.query && props.query.events;
-    },
-    getFragmentVariables(prevVars, totalCount) {
-      return {
-        ...prevVars,
-        count: totalCount,
-      };
-    },
-    getVariables(props, {count, cursor}, fragmentVariables) {
-      return {
-        count,
-        cursor,
-      };
-    },
-    variables: {cursor: null},
-    query: graphql`
+  graphql`
       query EventListPaginationQuery($count: Int!, $cursor: String) {
-        ...EventList_query
+        ...EventList_query @arguments(count: $count, cursor: $cursor)
       }
     `,
-  },
 );
 
 const styles = StyleSheet.create({
@@ -159,6 +138,6 @@ export default createQueryRendererModern(
         ...EventList_query
       }
     `,
-    variables: {cursor: null, count: 1},
+    variables: {cursor: null, count: 5},
   },
 );
