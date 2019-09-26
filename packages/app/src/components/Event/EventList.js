@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
+import {FlatList, View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {createRefetchContainer} from 'react-relay';
@@ -21,9 +21,11 @@ const EventList = props => {
   };
 
   onEndReached = () => {
-    const refetchVariables = fragmentVariables => ({
-      count: fragmentVariables.count + 10,
-    });
+    const refetchVariables = fragmentVariables => {
+      return {
+        count: fragmentVariables.count + 10,
+      };
+    };
     props.relay.refetch(refetchVariables);
   };
 
@@ -86,15 +88,10 @@ const EventListPaginationContainer = createRefetchContainer(
   {
     query: graphql`
       fragment EventList_query on Query
-        @argumentDefinitions(
-          count: {type: "Int", defaultValue: 10}
-          cursor: {type: "String"}
-        ) {
-        events(first: $count, after: $cursor)
-          @connection(key: "EventList_events") {
+        @argumentDefinitions(count: {type: "Int", defaultValue: 2}) {
+        events(first: $count) @connection(key: "EventList_events") {
           pageInfo {
             hasNextPage
-            endCursor
           }
           edges {
             node {
@@ -110,8 +107,8 @@ const EventListPaginationContainer = createRefetchContainer(
     `,
   },
   graphql`
-    query EventListPaginationQuery($count: Int!, $cursor: String) {
-      ...EventList_query @arguments(count: $count, cursor: $cursor)
+    query EventListPaginationQuery($count: Int!) {
+      ...EventList_query @arguments(count: $count)
     }
   `,
 );
@@ -148,10 +145,10 @@ export default createQueryRendererModern(
   EventList,
   {
     query: graphql`
-      query EventListQuery($count: Int!, $cursor: String) {
+      query EventListQuery($count: Int!) {
         ...EventList_query
       }
     `,
-    variables: {cursor: null, count: 5},
+    variables: {count: 5},
   },
 );

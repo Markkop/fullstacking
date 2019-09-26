@@ -8,7 +8,6 @@ import Snackbar from 'react-native-snackbar';
 import AsyncStorage from '@react-native-community/async-storage';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import {Card} from 'react-native-elements';
-import setEvents from './EventList';
 
 // To Do: Date + TimePicker
 

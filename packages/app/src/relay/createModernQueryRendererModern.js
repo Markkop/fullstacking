@@ -1,10 +1,14 @@
 import * as React from 'react';
-import {Text} from 'react-native';
+import {Text, ActivityIndicator} from 'react-native';
 import {QueryRenderer} from 'react-relay';
 
 import Environment from './Environment';
 
-export default function createQueryRenderer(FragmentComponent, Component, config) {
+export default function createQueryRenderer(
+  FragmentComponent,
+  Component,
+  config,
+) {
   const {query, queriesParams} = config;
 
   class QueryRendererWrapper extends React.Component {
@@ -27,7 +31,7 @@ export default function createQueryRenderer(FragmentComponent, Component, config
               return <FragmentComponent {...this.props} query={props} />;
             }
 
-            return <Text>loading</Text>;
+            return <ActivityIndicator />;
           }}
         />
       );
