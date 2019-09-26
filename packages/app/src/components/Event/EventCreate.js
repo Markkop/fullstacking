@@ -163,18 +163,6 @@ const EventCreate = props => {
 
 export default EventCreate;
 
-// const EventCard = ({event}) => {
-//   return (
-//     <View style={styles.container}>
-//       <Card title={event.title}>
-//         <Text>Date: {event.date}</Text>
-//         <Text>Description: {event.description}</Text>
-//         <Text>Author: {event.author ? event.author : 'anon'}</Text>
-//       </Card>
-//     </View>
-//   );
-// };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

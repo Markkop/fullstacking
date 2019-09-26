@@ -1,3 +1,4 @@
+// This file is not being used, check schema.js
 // import { RedisPubSub } from "graphql-redis-subscriptions";
 import { PubSub } from "graphql-subscriptions";
 

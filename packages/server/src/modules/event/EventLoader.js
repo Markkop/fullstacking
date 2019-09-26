@@ -3,9 +3,8 @@ import {
   connectionFromMongoCursor,
   mongooseLoader
 } from "@entria/graphql-mongoose-loader";
-import { ConnectionArguments } from "graphql-relay";
 
-import EventModel, { IEvent } from "./EventModel";
+import EventModel from "./EventModel";
 
 export default class Event {
   constructor(data) {

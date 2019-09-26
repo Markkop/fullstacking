@@ -23,6 +23,7 @@ import { schema } from "./schema";
     console.log(`Server started on port :3000`);
   });
 
+  // Subscription is not working
   SubscriptionServer.create(
     {
       onConnect: connectionParams =>

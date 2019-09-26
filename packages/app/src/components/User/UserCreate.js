@@ -85,9 +85,7 @@ const UserCreate = props => {
             <AwesomeButtonRick
               width={styles.button.width}
               style={styles.button}
-              onPress={handleSubmit}
-              // disabled={!isValid}
-            >
+              onPress={handleSubmit}>
               Create User
             </AwesomeButtonRick>
           </>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {FlatList, View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
@@ -8,14 +8,11 @@ import createQueryRendererModern from '../../relay/createModernQueryRendererMode
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 
 // To Do: Sort events by createdAt
-
 const EventList = props => {
   const [events, setEvents] = useState(props.query.events.edges);
   const [isFetchingTop, setIsFetchingTop] = useState(false);
-  //let {events} = props.query;
 
   const onRefresh = () => {
-    // const {events} = props.query;
     // Add refresh to refetch list
     addNewEvent();
   };
@@ -140,6 +137,8 @@ const styles = StyleSheet.create({
   },
 });
 
+// Not sure if the query bellow is needed after using RefetchContainer
+// but the code doesn't work without it
 export default createQueryRendererModern(
   EventListPaginationContainer,
   EventList,
