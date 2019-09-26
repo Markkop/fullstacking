@@ -1,9 +1,10 @@
 import React from 'react';
-import {TextInput, Button, Text} from 'react-native';
+import {TextInput, View, Text, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import UserCreateMutation from './UserCreateMutation';
 import Snackbar from 'react-native-snackbar';
 import * as yup from 'yup';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 
 const UserCreate = props => {
   const handleSubmit = values => {
@@ -36,7 +37,7 @@ const UserCreate = props => {
     UserCreateMutation.commit(input, onCompleted, onError);
   };
   return (
-    <>
+    <View style={styles.card}>
       <Formik
         initialValues={{name: '', email: '', password: ''}}
         onSubmit={values => handleSubmit(values)}
@@ -51,19 +52,19 @@ const UserCreate = props => {
         {({values, handleChange, handleSubmit, errors, isValid, touched}) => (
           <>
             <TextInput
-              placeholder="Name"
+              placeholder="What's your name?"
               onChangeText={handleChange('name')}
               value={values.name}
             />
 
             <TextInput
-              placeholder="email"
+              placeholder="Which email you want to be contacted?"
               onChangeText={handleChange('email')}
               value={values.email}
             />
 
             <TextInput
-              placeholder="password"
+              placeholder="Your password, please"
               onChangeText={handleChange('password')}
               secureTextEntry={true}
               value={values.password}
@@ -81,18 +82,38 @@ const UserCreate = props => {
               </Text>
             )}
 
-            <Button
+            <AwesomeButtonRick
+              width={styles.button.width}
+              style={styles.button}
               onPress={handleSubmit}
               // disabled={!isValid}
-              title="Create User"></Button>
+            >
+              Create User
+            </AwesomeButtonRick>
           </>
         )}
       </Formik>
-      <Button
+      <AwesomeButtonRick
+        width={styles.button.width}
         onPress={() => props.navigation.navigate('UserLogin')}
-        title="Back to login"></Button>
-    </>
+        style={styles.button}>
+        Back to login
+      </AwesomeButtonRick>
+    </View>
   );
 };
 
 export default UserCreate;
+
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  button: {
+    margin: 10,
+    width: 200,
+  },
+});

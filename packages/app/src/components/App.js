@@ -35,3 +35,10 @@ EventList.navigationOptions = {
 EventCreate.navigationOptions = {
   header: null,
 };
+
+UserLogin.navigationOptions = {
+  header: null,
+};
+UserCreate.navigationOptions = {
+  header: null,
+};
