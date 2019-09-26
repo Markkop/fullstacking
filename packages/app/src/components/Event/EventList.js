@@ -88,7 +88,7 @@ const EventListPaginationContainer = createRefetchContainer(
   {
     query: graphql`
       fragment EventList_query on Query
-        @argumentDefinitions(count: {type: "Int", defaultValue: 2}) {
+        @argumentDefinitions(count: {type: "Int", defaultValue: 10}) {
         events(first: $count) @connection(key: "EventList_events") {
           pageInfo {
             hasNextPage

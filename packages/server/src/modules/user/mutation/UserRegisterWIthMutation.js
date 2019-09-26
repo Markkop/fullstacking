@@ -41,7 +41,7 @@ export default mutationWithClientMutationId({
     });
 
     await user.save();
-
+    console.log("New user added: ", user);
     // Subscription not working
     // await pubSub.publish(EVENTS.USER.ADDED, { UserAdded: { user } });
 

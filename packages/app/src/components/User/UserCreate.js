@@ -31,7 +31,7 @@ const UserCreate = props => {
     };
 
     const onError = err => {
-      console.error(err);
+      console.warn(err);
     };
 
     UserCreateMutation.commit(input, onCompleted, onError);
