@@ -12,6 +12,7 @@ import UserModel from "../modules/user/UserModel";
 import EventType, { EventConnection } from "../modules/event/EventType";
 import { EventLoader } from '../loader';
 
+
 const registeredTypes = {}; // This const is not recognized in the function bellow
 
 // export function registerType(type) {

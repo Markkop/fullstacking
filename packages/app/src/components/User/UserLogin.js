@@ -1,9 +1,10 @@
 import React from 'react';
-import {TextInput, Button, Text} from 'react-native';
+import {TextInput, StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Formik} from 'formik';
 import Snackbar from 'react-native-snackbar';
 import UserLoginMutation from './UserLoginMutation';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 
 const UserLogin = props => {
   const handleSubmit = values => {
@@ -43,13 +44,14 @@ const UserLogin = props => {
     UserLoginMutation.commit(input, onCompleted, onError);
   };
   return (
-    <>
+    <View style={styles.card}>
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={values => handleSubmit(values)}>
         {({values, handleChange, handleSubmit, error}) => (
           <>
             <TextInput
+              style={styles.input}
               placeholder="email"
               onChangeText={handleChange('email')}
               value={values.email}
@@ -59,15 +61,38 @@ const UserLogin = props => {
               onChangeText={handleChange('password')}
               value={values.password}
             />
-            <Button onPress={handleSubmit} title="Login User"></Button>
+            <AwesomeButtonRick
+              style={styles.button}
+              width={styles.button.width}
+              onPress={handleSubmit}>
+              Login User
+            </AwesomeButtonRick>
           </>
         )}
       </Formik>
-      <Button
-        onPress={() => props.navigation.navigate('UserCreate')}
-        title="Register User"></Button>
-    </>
+      <AwesomeButtonRick
+        style={styles.button}
+        width={styles.button.width}
+        onPress={() => props.navigation.navigate('UserCreate')}>
+        Register User
+      </AwesomeButtonRick>
+    </View>
   );
 };
 
 export default UserLogin;
+
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  input: {},
+
+  button: {
+    margin: 10,
+    width: 200,
+  },
+});
