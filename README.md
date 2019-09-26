@@ -59,3 +59,4 @@ yarn redirect
 ![koa](https://thepracticaldev.s3.amazonaws.com/i/ixs36z4h71qita3ku5gd.png)
 ![koa and graphql](https://thepracticaldev.s3.amazonaws.com/i/m5rsx6sxatyajjlv2pzf.png)
 ![first screens](https://thepracticaldev.s3.amazonaws.com/i/npil7hmt3550v31qsc2m.png)
+![final screens](cover.jpg)
