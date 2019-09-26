@@ -9,7 +9,15 @@ const EventCard = ({event}) => {
   return (
     <View style={styles.container}>
       <Card title={event.title}>
-        <Text>Date: {event.date}</Text>
+        <Text>
+          Date:{' '}
+          {event.date &&
+            event.date
+
+              .split(' ')
+              .slice(0, 4)
+              .join(' ')}
+        </Text>
         <Text>Description: {event.description}</Text>
         <Text>Author: {event.author ? event.author : 'anon'}</Text>
       </Card>

@@ -37,7 +37,7 @@ const EventCreate = props => {
 
     const input = {
       title,
-      date,
+      date: date.toString(),
       description,
     };
 
@@ -58,7 +58,7 @@ const EventCreate = props => {
             node: {
               ...input,
               author: 'You!',
-              id: Math.random(),
+              id: Math.random().toString(),
             },
           };
           return await AsyncStorage.setItem('newEvent', JSON.stringify(event));

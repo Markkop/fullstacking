@@ -17,6 +17,7 @@ const EventList = props => {
   const onRefresh = () => {
     // const {events} = props.query;
     // Add refresh to refetch list
+    addNewEvent();
   };
 
   onEndReached = () => {
@@ -28,7 +29,6 @@ const EventList = props => {
 
   renderItem = ({item}) => {
     const {node} = item;
-
     return <EventCard event={node} />;
   };
 
@@ -46,8 +46,6 @@ const EventList = props => {
       console.warn(err);
     }
   };
-  addNewEvent();
-
   return (
     <>
       <View style={styles.buttons}>
