@@ -8,12 +8,11 @@ import {Card} from 'react-native-elements';
 const EventCard = ({event}) => {
   return (
     <View style={styles.container}>
-      <Card title={event.title}>
+      <Card title={event.title} style={styles.card}>
         <Text>
           Date:{' '}
           {event.date &&
             event.date
-
               .split(' ')
               .slice(0, 4)
               .join(' ')}
@@ -28,7 +27,7 @@ const EventCard = ({event}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
     paddingTop: 5,
     paddingBottom: 5,
@@ -40,6 +39,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#34495e',
+  },
+  card: {
+    minWidth: 400,
   },
 });
 
