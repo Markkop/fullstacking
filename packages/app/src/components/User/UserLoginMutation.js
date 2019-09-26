@@ -4,6 +4,7 @@ import Environment from '../../relay/Environment';
 const mutation = graphql`
   mutation UserLoginMutation($input: UserLoginWithEmailInput!) {
     UserLogin(input: $input) {
+      name
       token
       error
     }

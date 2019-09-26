@@ -70,6 +70,7 @@ input UserLoginWithEmailInput {
 }
 
 type UserLoginWithEmailPayload {
+  name: String
   token: String
   error: String
   clientMutationId: String

@@ -34,10 +34,15 @@ export default mutationWithClientMutationId({
     }
 
     return {
+      name: user.name,
       token: generateToken(user)
     };
   },
   outputFields: {
+    name: {
+      type: GraphQLString,
+      resolve: ({ name }) => name
+    },
     token: {
       type: GraphQLString,
       resolve: ({ token }) => token
