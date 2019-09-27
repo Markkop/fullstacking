@@ -29,8 +29,8 @@ I'd like to thanks @jgcmarins, @Thomazella and @jaburcodes for all the help they
 9. [Fullstacking: Creating the app](https://dev.to/heymarkkop/fullstacking-creating-the-app-431o)
 10. [Fullstacking: Users + Login/Register](https://dev.to/heymarkkop/fullstacking-users-login-register-2l6b)
 11. [FullStacking: Pagination + DataLoader](https://dev.to/heymarkkop/fullstacking-pagination-dataloader-mc2)
-12. [Fullstacking: Final Styling](#)
-13. [Fullstacking: Conclusion](#)
+12. [Fullstacking: Final Styling](https://dev.to/heymarkkop/fullstacking-final-styling-4028)
+13. [Fullstacking: Conclusion](https://dev.to/heymarkkop/fullstacking-conclusion-k4a)
 
 ## Requirements
 
@@ -59,4 +59,4 @@ yarn redirect
 ![koa](https://thepracticaldev.s3.amazonaws.com/i/ixs36z4h71qita3ku5gd.png)
 ![koa and graphql](https://thepracticaldev.s3.amazonaws.com/i/m5rsx6sxatyajjlv2pzf.png)
 ![first screens](https://thepracticaldev.s3.amazonaws.com/i/npil7hmt3550v31qsc2m.png)
-![final screens](cover.jpg)
+![final screens](https://thepracticaldev.s3.amazonaws.com/i/vj3te5abe1h8fvbxd3i3.jpeg)
