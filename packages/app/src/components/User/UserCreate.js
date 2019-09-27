@@ -31,7 +31,7 @@ const UserCreate = props => {
     };
 
     const onError = err => {
-      console.error(err);
+      console.warn(err);
     };
 
     UserCreateMutation.commit(input, onCompleted, onError);
@@ -85,9 +85,7 @@ const UserCreate = props => {
             <AwesomeButtonRick
               width={styles.button.width}
               style={styles.button}
-              onPress={handleSubmit}
-              // disabled={!isValid}
-            >
+              onPress={handleSubmit}>
               Create User
             </AwesomeButtonRick>
           </>

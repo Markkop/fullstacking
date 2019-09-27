@@ -2,7 +2,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
-  GraphQLList,
   GraphQLNonNull
 } from "graphql";
 import { connectionArgs, fromGlobalId, nodeDefinitions } from "graphql-relay";
@@ -10,21 +9,16 @@ import EventModel from "../modules/event/EventModel";
 import UserType from "../modules/user/UserType";
 import UserModel from "../modules/user/UserModel";
 import EventType, { EventConnection } from "../modules/event/EventType";
-import { EventLoader } from '../loader';
+import { EventLoader } from "../loader";
 
-
-const registeredTypes = {}; // This const is not recognized in the function bellow
-
-// export function registerType(type) {
-//   console.log(type)
-//   registeredTypes[type.name] = type;
-//   return type;
-// }
+// Not sure if these are needed
+const registeredTypes = {};
 
 export const { nodeField, nodeInterface } = nodeDefinitions(object => {
   return registeredTypes[object.constructor.name] || null;
 });
 
+// To Do: use DataLoader in resolve functions
 export default new GraphQLObjectType({
   name: "Query",
   description: "The root of all... queries",
@@ -46,7 +40,8 @@ export default new GraphQLObjectType({
         }
       },
       resolve: (obj, args, context) => {
-        return EventLoader.loadEvents(context, args)},
+        return EventLoader.loadEvents(context, args);
+      }
     },
     user: {
       type: UserType,

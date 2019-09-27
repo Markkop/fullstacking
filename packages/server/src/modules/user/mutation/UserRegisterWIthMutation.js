@@ -2,7 +2,6 @@ import { GraphQLString, GraphQLNonNull } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 
 import { generateToken } from "../../../auth";
-// import pubSub, { EVENTS } from '../../../pubSub';
 
 import UserModel from "../UserModel";
 
@@ -41,9 +40,7 @@ export default mutationWithClientMutationId({
     });
 
     await user.save();
-
-    // Subscription not working
-    // await pubSub.publish(EVENTS.USER.ADDED, { UserAdded: { user } });
+    console.log("New user added: ", user);
 
     return {
       token: generateToken(user)

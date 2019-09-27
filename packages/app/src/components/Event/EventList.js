@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {FlatList, View, Text, Button, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {graphql} from 'babel-plugin-relay/macro';
 import {createRefetchContainer} from 'react-relay';
@@ -8,27 +8,26 @@ import createQueryRendererModern from '../../relay/createModernQueryRendererMode
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 
 // To Do: Sort events by createdAt
-
 const EventList = props => {
   const [events, setEvents] = useState(props.query.events.edges);
   const [isFetchingTop, setIsFetchingTop] = useState(false);
-  //let {events} = props.query;
 
   const onRefresh = () => {
-    // const {events} = props.query;
     // Add refresh to refetch list
+    addNewEvent();
   };
 
   onEndReached = () => {
-    const refetchVariables = fragmentVariables => ({
-      count: fragmentVariables.count + 10,
-    });
+    const refetchVariables = fragmentVariables => {
+      return {
+        count: fragmentVariables.count + 10,
+      };
+    };
     props.relay.refetch(refetchVariables);
   };
 
   renderItem = ({item}) => {
     const {node} = item;
-
     return <EventCard event={node} />;
   };
 
@@ -46,8 +45,6 @@ const EventList = props => {
       console.warn(err);
     }
   };
-  addNewEvent();
-
   return (
     <>
       <View style={styles.buttons}>
@@ -88,15 +85,10 @@ const EventListPaginationContainer = createRefetchContainer(
   {
     query: graphql`
       fragment EventList_query on Query
-        @argumentDefinitions(
-          count: {type: "Int", defaultValue: 10}
-          cursor: {type: "String"}
-        ) {
-        events(first: $count, after: $cursor)
-          @connection(key: "EventList_events") {
+        @argumentDefinitions(count: {type: "Int", defaultValue: 10}) {
+        events(first: $count) @connection(key: "EventList_events") {
           pageInfo {
             hasNextPage
-            endCursor
           }
           edges {
             node {
@@ -112,8 +104,8 @@ const EventListPaginationContainer = createRefetchContainer(
     `,
   },
   graphql`
-    query EventListPaginationQuery($count: Int!, $cursor: String) {
-      ...EventList_query @arguments(count: $count, cursor: $cursor)
+    query EventListPaginationQuery($count: Int!) {
+      ...EventList_query @arguments(count: $count)
     }
   `,
 );
@@ -145,15 +137,17 @@ const styles = StyleSheet.create({
   },
 });
 
+// Not sure if the query bellow is needed after using RefetchContainer
+// but the code doesn't work without it
 export default createQueryRendererModern(
   EventListPaginationContainer,
   EventList,
   {
     query: graphql`
-      query EventListQuery($count: Int!, $cursor: String) {
+      query EventListQuery($count: Int!) {
         ...EventList_query
       }
     `,
-    variables: {cursor: null, count: 5},
+    variables: {count: 5},
   },
 );

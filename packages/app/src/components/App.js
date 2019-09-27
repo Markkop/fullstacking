@@ -1,4 +1,3 @@
-import React from 'react';
 import EventList from './Event/EventList';
 import EventCreate from './Event/EventCreate';
 import UserCreate from './User/UserCreate';
@@ -28,6 +27,7 @@ export default createAppContainer(
   ),
 );
 
+// To Do: there must be a way to make this cleaner
 EventList.navigationOptions = {
   header: null,
 };
@@ -39,6 +39,7 @@ EventCreate.navigationOptions = {
 UserLogin.navigationOptions = {
   header: null,
 };
+
 UserCreate.navigationOptions = {
   header: null,
 };

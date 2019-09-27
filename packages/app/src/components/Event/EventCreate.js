@@ -8,7 +8,6 @@ import Snackbar from 'react-native-snackbar';
 import AsyncStorage from '@react-native-community/async-storage';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import {Card} from 'react-native-elements';
-import setEvents from './EventList';
 
 // To Do: Date + TimePicker
 
@@ -37,7 +36,7 @@ const EventCreate = props => {
 
     const input = {
       title,
-      date,
+      date: date.toString(),
       description,
     };
 
@@ -58,7 +57,7 @@ const EventCreate = props => {
             node: {
               ...input,
               author: 'You!',
-              id: Math.random(),
+              id: Math.random().toString(),
             },
           };
           return await AsyncStorage.setItem('newEvent', JSON.stringify(event));
@@ -163,18 +162,6 @@ const EventCreate = props => {
 };
 
 export default EventCreate;
-
-// const EventCard = ({event}) => {
-//   return (
-//     <View style={styles.container}>
-//       <Card title={event.title}>
-//         <Text>Date: {event.date}</Text>
-//         <Text>Description: {event.description}</Text>
-//         <Text>Author: {event.author ? event.author : 'anon'}</Text>
-//       </Card>
-//     </View>
-//   );
-// };
 
 const styles = StyleSheet.create({
   container: {

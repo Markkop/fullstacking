@@ -1,5 +1,6 @@
-// import EventAddSubscription from "./EventAddSubscription";
+// This file is not being used, check schema.js
+import EventAddSubscription from "./EventAddSubscription";
 
-// export default {
-//   EventAddSubscription
-// };
+export default {
+  EventAddSubscription
+};
