@@ -1,0 +1,130 @@
+type Event implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  title: String
+  date: String
+  description: String
+  author: String
+}
+
+"""A connection to a list of items."""
+type EventConnection {
+  """Number of items in this connection"""
+  count: Int!
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+      This allows a client to fetch the first five objects by passing "5" as the
+      argument to "first", then fetch the total count so it could display "5 of 83",
+      for example.
+  """
+  totalCount: Int!
+
+  """Offset from start"""
+  startCursorOffset: Int!
+
+  """Offset till end"""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfoExtended!
+
+  """A list of edges."""
+  edges: [EventEdge]!
+}
+
+input EventCreateInput {
+  title: String!
+  date: String!
+  description: String!
+  clientMutationId: String
+}
+
+type EventCreatePayload {
+  id: ID
+  clientMutationId: String
+}
+
+"""An edge in a connection."""
+type EventEdge {
+  """The item at the end of the edge"""
+  node: Event!
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Mutation {
+  EventCreate(input: EventCreateInput!): EventCreatePayload
+  UserCreate(input: UserRegisterWithEmailInput!): UserRegisterWithEmailPayload
+  UserLogin(input: UserLoginWithEmailInput!): UserLoginWithEmailPayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfoExtended {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""The root of all... queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+  event(id: ID!): Event
+  events(after: String, first: Int, before: String, last: Int, search: String): EventConnection
+  user(id: ID!): User
+}
+
+type User {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  email: String
+  active: Boolean
+}
+
+input UserLoginWithEmailInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLoginWithEmailPayload {
+  name: String
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+input UserRegisterWithEmailInput {
+  name: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserRegisterWithEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}

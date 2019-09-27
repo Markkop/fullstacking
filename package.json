@@ -1,10 +1,17 @@
 {
   "name": "fullstacking",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A fullstack challenge",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "start:app": "yarn --cwd packages/app start",
+    "start:server": "yarn --cwd packages/server start",
+    "android": "yarn --cwd packages/app/android android",
+    "shake": "adb shell input keyevent 82",
+    "update-schema": "yarn --cwd packages/server update-schema",
+    "relay": "yarn --cwd packages/app relay",
+    "test": "jest",
+    "redirect": "sh ./packages/app/scripts/redirectPorts.sh"
   },
   "repository": {
     "type": "git",
@@ -22,5 +29,6 @@
   "bugs": {
     "url": "https://github.com/Markkop/fullstacking/issues"
   },
-  "homepage": "https://github.com/Markkop/fullstacking#readme"
+  "homepage": "https://github.com/Markkop/fullstacking#readme",
+  "dependencies": {}
 }
