@@ -1,7 +1,7 @@
 # fullstacking
 
-FullStacking is a project for a [job](https://github.com/FotonTech/join)'s coding challenge that uses React-Native, KoaJS, GraphQL and MongoDB as its stack. It's also the project used in the [FullStacking Series](https://dev.to/heymarkkop/new-challenge-fullstacking-with-react-native-3l55) which I shared everything I was learning in blog's posts.
-The app is a simple event planner with Register/Login and Authentication which users can create events to add to a common list. All forms have validation, there's a datepicker and event's author name is automatically inserted.
+FullStacking is a project for a [job](https://github.com/FotonTech/join)'s coding challenge that uses React-Native, KoaJS, GraphQL and MongoDB as its stack. It's also the project used in the [FullStacking Series](https://dev.to/heymarkkop/new-challenge-fullstacking-with-react-native-3l55) which I shared everything I was learning in blog's posts.\
+The app is a simple event planner with Register/Login and Authentication which users can create events to add to a common list.\ All forms have validation, there's a datepicker and event's author name is automatically inserted.
 
 ![demo](final.gif)
 
@@ -28,14 +28,14 @@ I'd like to thanks @jgcmarins, @Thomazella and @jaburcodes for all the help they
 8. [Fullstacking: Relay + GraphQL](https://dev.to/heymarkkop/fullstacking-relay-graphql-175j)
 9. [Fullstacking: Creating the app](https://dev.to/heymarkkop/fullstacking-creating-the-app-431o)
 10. [Fullstacking: Users + Login/Register](https://dev.to/heymarkkop/fullstacking-users-login-register-2l6b)
-11. [FullStacking: Pagination + DataLoader](https://dev.to/heymarkkop/fullstacking-pagination-dataloader-mc2)
+11. [Fullstacking: Pagination + DataLoader](https://dev.to/heymarkkop/fullstacking-pagination-dataloader-mc2)
 12. [Fullstacking: Final Styling](https://dev.to/heymarkkop/fullstacking-final-styling-4028)
 13. [Fullstacking: Conclusion](https://dev.to/heymarkkop/fullstacking-conclusion-k4a)
 
 ## Requirements
 
-Node, npm, MongoDB, React Native CLI, OpenJDK, Android Studio and AndroidSDK.
-Some of these may different according to your system. Check my [posts](https://dev.to/heymarkkop/fullstacking-setting-up-react-native-1g21) for instructions.
+Node, npm, MongoDB, React Native CLI, OpenJDK, Android Studio and AndroidSDK.\
+Some of these may differ according to your system. Check my [posts](https://dev.to/heymarkkop/fullstacking-setting-up-react-native-1g21) for instructions.
 
 ## Running
 
