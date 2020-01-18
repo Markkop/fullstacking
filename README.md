@@ -1,14 +1,15 @@
 # fullstacking
 
-FullStacking is a project for a [job](https://github.com/FotonTech/join)'s coding challenge that uses React-Native, KoaJS, GraphQL and MongoDB as its stack. It's also the project used in the [FullStacking Series](https://dev.to/heymarkkop/new-challenge-fullstacking-with-react-native-3l55) which I shared everything I was learning in blog's posts.\
-The app is a simple event planner with Register/Login and Authentication which users can create events to add to a common list.\ All forms have validation, there's a datepicker and event's author name is automatically inserted.
+FullStacking is a project for a [job](https://github.com/FotonTech/join)'s coding challenge that uses React-Native, KoaJS, GraphQL and MongoDB as its stack. It's also the project used in the [FullStacking Series](https://dev.to/heymarkkop/new-challenge-fullstacking-with-react-native-3l55) in which I shared everything I was learning in blog posts.\
+The app is a simple event planner with Register/Login and Authentication where users can create events and add them to a common list.\
+All forms have validation, there's a datepicker and event's author name is automatically inserted.
 
 ![demo](final.gif)
 
 ## Current state
 
 I've worked in this project for 4 weeks with some breaks.
-It still has some workarounds and several pitfalls, but it's a cool first project using GraphQL, a technology I was very curious about since I've started to work if web development.
+It still has some workarounds and several pitfalls, but it's a cool first project using GraphQL, a technology I was very curious since I've started working with web development.
 I won't maintain this Project for now, as I want to try and practice other technologies.
 
 ## Learnings and mentors
